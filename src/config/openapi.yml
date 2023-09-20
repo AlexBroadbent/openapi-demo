@@ -1,0 +1,90 @@
+---
+openapi: 3.1.0
+
+info:
+  title: OpenAPI Demo
+  version: 0.1.0
+  description: Alex's OpenAPI Demo sandbox
+  x-logo:
+    url: logo.png
+    altText: Alex's OpenAPI Demo
+  contact:
+    name: Alexander Broadbent
+    url: https://abroadbent.com
+    email: hello@abroadbent.com
+
+servers:
+  - url: http://localhost:8000/v1
+    description: Local
+
+x-tagGroups:
+  - name: Intro
+    tags:
+      - Intro
+  - name: API
+      - Health
+
+tags:
+  - name: Intro
+    description: |
+      Hello and welcome to my OpenAPI Demo Sandbox.
+
+      I'm going to use this API as an example of how to use OpenAPI with a variety of tools.
+
+  - name: Health
+    description: |
+      Check the health status of the server.
+
+paths:
+  "/_health":
+    get:
+      tags:
+        - Health
+      summary: Get Health Check Status
+      description: Returns the health check for the service
+      operationId: getHealthCheck
+      security:
+        - api_key:
+            - health:get
+      responses:
+        "200":
+          description: Returns health check result
+          content:
+            application/json:
+              schema:
+                type: object
+                required: ["data"]
+                properties:
+                  data:
+                    $ref: "#/components/schemas/HealthCheckResult"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+components:
+  schemas:
+    HealthCheckResult:
+      $ref: "./schemas/HealthCheckResult.yml"
+
+  responses:
+    "UnauthorizedError":
+      description: Unauthorized Error
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - status
+              - message
+            properties:
+              status:
+                type: number
+                description: HTTP response code
+              message:
+                type: string
+                description: Message which describes the error
+
+  securitySchemas:
+    api_key:
+      type: apiKey
+      name: X-API-Key
+      in: header

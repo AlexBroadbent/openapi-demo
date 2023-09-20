@@ -1,0 +1,15 @@
+{
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "include": ["src/**/*", "src/openapi.yml", "src/openapi.bundle.json"],
+  "exclude": ["node_modules"],
+
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "outDir": "./build"
+  },
+  "typeRoots": ["src/types", "node_modules/@types"]
+}
