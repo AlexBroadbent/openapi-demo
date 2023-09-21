@@ -1,7 +1,7 @@
 import type { FastifyRequest } from "fastify"
 
-import { HealthCheckResult } from "~/src/types/schemas"
-import { JsonResponse } from "~/src/types/types"
+import { HealthCheckResult } from "../../types/schemas"
+import { JsonResponse } from "../../types/types"
 
 export const healthController = {
   async getHealthCheck(req: FastifyRequest): Promise<JsonResponse<"getHealthCheck">> {

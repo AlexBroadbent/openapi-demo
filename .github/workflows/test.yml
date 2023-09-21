@@ -25,11 +25,9 @@ jobs:
           node-version: 18.17.1
           cache: pnpm
       - name: Install dependencies
-        run: pnpm install
-      - name: Run validate schema
-        run: pnpm validate
-      - name: Run generate schema
-        run: pnpm generate
+        run: pnpm i
+      - name: Run openapi generation
+        run: pnpm openapi
       - name: Run build
         run: pnpm build
       - name: Run unit tests

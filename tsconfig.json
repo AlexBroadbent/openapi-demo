@@ -10,13 +10,7 @@
   ],
   "compilerOptions": {
     "outDir": "./build",
-    "rootDir": ".",
     "resolveJsonModule": true,
-    "paths": {
-      "~/*": [
-        "./*"
-      ]
-    }
   },
   "typeRoots": [
     "src/types",

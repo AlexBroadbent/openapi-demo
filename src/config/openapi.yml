@@ -61,16 +61,20 @@ paths:
                   data:
                     $ref: "#/components/schemas/HealthCheckResult"
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: "#/components/responses/ErrorResponse"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
 
 components:
   schemas:
     HealthCheckResult:
-      $ref: "./schemas/HealthCheckResult.yml"
+      $ref: ./schemas/HealthCheckResult.yml
+    ErrorModel:
+      $ref: ./schemas/ErrorModel.yml
 
   responses:
-    "UnauthorizedError":
-      description: Unauthorized Error
+    ErrorResponse:
+      description: Error
       content:
         application/json:
           schema:

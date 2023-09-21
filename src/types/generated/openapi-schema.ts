@@ -19,10 +19,11 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     HealthCheckResult: external["schemas/HealthCheckResult.yml"];
+    ErrorModel: external["schemas/ErrorModel.yml"];
   };
   responses: {
-    /** @description Unauthorized Error */
-    UnauthorizedError: {
+    /** @description Error */
+    ErrorResponse: {
       content: {
         "application/json": {
           /** @description HTTP response code */
@@ -42,6 +43,10 @@ export interface components {
 export type $defs = Record<string, never>;
 
 export interface external {
+  "schemas/ErrorModel.yml": {
+    status: number;
+    message: string;
+  };
   "schemas/HealthCheckResult.yml": {
     ok: boolean;
   };
@@ -63,7 +68,8 @@ export interface operations {
           };
         };
       };
-      401: components["responses"]["UnauthorizedError"];
+      401: components["responses"]["ErrorResponse"];
+      default: components["responses"]["ErrorResponse"];
     };
   };
 }

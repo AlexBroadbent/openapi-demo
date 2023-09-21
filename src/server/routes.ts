@@ -2,7 +2,7 @@ import type { FastifyInstance } from "fastify"
 import openApiGlue from "fastify-openapi-glue"
 import path from "path"
 
-import { healthController } from "~/src/module/health/controller"
+import { healthController } from "../module/health/controller"
 import securityHandlers from "./security-handlers"
 
 const specification = path.join(__dirname, "../config/openapi.bundle.json")
