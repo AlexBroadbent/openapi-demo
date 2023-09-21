@@ -1,0 +1,19 @@
+version: "3.1"
+
+networks:
+  bridge-network:
+    driver: bridge
+
+services:
+  api:
+    env_file:
+      - ".env"
+    environment:
+      - NODE_ENV=local
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - bridge-network

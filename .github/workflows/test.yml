@@ -1,0 +1,35 @@
+name: Run unit tests
+on:
+  pull_request:
+      branches: [main]
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.1
+          cache: pnpm
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run validate schema
+        run: pnpm validate
+      - name: Run generate schema
+        run: pnpm generate
+      - name: Run build
+        run: pnpm build
+      - name: Run unit tests
+        run: pnpm test

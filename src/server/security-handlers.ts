@@ -1,5 +1,5 @@
-import type { FastifyRequest, RequestParamsDefault } from "fastify"
-import { BadRequestError, InternalServerError, UnauthorizedError } from "./errors"
+import type { FastifyReply, FastifyRequest, RequestParamsDefault } from "fastify"
+import { BadRequestError, UnauthorizedError } from "./errors"
 
 export type APIKey = { name: string; token: string; permissions: string[] }
 
@@ -7,13 +7,13 @@ const keys: APIKey[] = [
   {
     name: "Test Token",
     token: "test",
-    permissions: ["foo:create"],
+    permissions: ["health:get"],
   },
 ]
 
-export const api_key = (request: FastifyRequest, params: RequestParamsDefault) => {
+const api_key = (request: FastifyRequest, reply: FastifyReply, params: RequestParamsDefault) => {
   if (!Array.isArray(params) || !params.every((param: unknown) => typeof param === "string"))
-    throw new InternalServerError("Invalid route permissions")
+    throw new UnauthorizedError("Invalid route permissions")
 
   const apiKey = request.headers["x-api-key"]
   if (!apiKey) throw new BadRequestError("API key not provided")
@@ -23,5 +23,8 @@ export const api_key = (request: FastifyRequest, params: RequestParamsDefault) =
   if (!validKey) throw new UnauthorizedError("Invalid API key")
 
   const permissions = validKey.permissions
-  if (!params.every((param: string) => param in permissions)) throw new UnauthorizedError("Insufficient permissions")
+  if (!params.every((param: string) => permissions.includes(param)))
+    throw new UnauthorizedError("Insufficient permissions")
 }
+
+export default { api_key }

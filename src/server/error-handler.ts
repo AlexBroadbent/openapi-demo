@@ -7,6 +7,7 @@ export const errorHandler = async (
   request: FastifyRequest,
   reply: FastifyReply,
 ): Promise<void> => {
+  console.error(error)
   request.log.error(error)
 
   if (error instanceof BadRequestError)
@@ -19,8 +20,14 @@ export const errorHandler = async (
       status: 401,
       message: error.message,
     })
-  return reply.status(500).send({
-    status: 500,
+  if (error instanceof InternalServerError)
+    return reply.status(500).send({
+      status: 500,
+      message: error.message,
+    })
+
+  return reply.status(error.statusCode || 500).send({
+    status: error.statusCode || 500,
     message: error instanceof InternalServerError ? error.message : "Internal Server Error",
   })
 }

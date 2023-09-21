@@ -1,0 +1,6 @@
+extends:
+- recommended
+
+apis:
+  api:
+    root: ./src/config/openapi.yml

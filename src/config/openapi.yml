@@ -1,9 +1,12 @@
----
 openapi: 3.1.0
 
 info:
   title: OpenAPI Demo
   version: 0.1.0
+  license:
+    identifier: Apache-2.0
+    name: Apache License 2.0
+    url: https://spdx.org/licenses/Apache-2.0.html
   description: Alex's OpenAPI Demo sandbox
   x-logo:
     url: logo.png
@@ -22,6 +25,7 @@ x-tagGroups:
     tags:
       - Intro
   - name: API
+    tags:
       - Health
 
 tags:
@@ -32,8 +36,7 @@ tags:
       I'm going to use this API as an example of how to use OpenAPI with a variety of tools.
 
   - name: Health
-    description: |
-      Check the health status of the server.
+    description: Check the health status of the server.
 
 paths:
   "/_health":
@@ -83,7 +86,7 @@ components:
                 type: string
                 description: Message which describes the error
 
-  securitySchemas:
+  securitySchemes:
     api_key:
       type: apiKey
       name: X-API-Key

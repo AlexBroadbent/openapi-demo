@@ -1,5 +1,4 @@
-import { logger } from "./server/logger"
-import { getServer } from "./server/server"
+import { getServer, logger } from "./server"
 
 const start = async () => {
   const server = await getServer({ logger })
