@@ -1,0 +1,10 @@
+description: Returns city result
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: ../schemas/City.yml

@@ -22,7 +22,7 @@
         "jest.config.ts"
     ],
     "rules": {
-        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-unused-vars": "warn",
         "prettier/prettier": "error",
         "no-extra-semi": "error",
         "no-unexpected-multiline": "error",

@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: OpenAPI Demo
+  version: 0.1.0
+  description: Alex's OpenAPI Demo sandbox
+  x-logo:
+    url: logo.png
+    altText: Alex's OpenAPI Demo
+  contact:
+    name: Alexander Broadbent
+    url: https://abroadbent.com
+    email: hello@abroadbent.com
+servers:
+  - url: http://localhost:8000/v1
+    description: Local
+tags:
+  - name: Intro
+    description: |
+      Hello and welcome to my OpenAPI Demo.
+
+      I'm going to use this API as an example of how to use OpenAPI with a variety of tools.
+  - name: Health
+    description: Check the health status of the server.
+  - name: City
+    description: |
+      Cities are a representation of a city within a country,
+paths:
+  /city/{id}:
+    get:
+      tags:
+        - City
+      summary: Get City
+      description: Get a city given an ID
+      operationId: getCity
+      security:
+        - api_key:
+            - city:get
+      parameters:
+        - $ref: '#/components/parameters/PathCityID'
+      responses:
+        '200':
+          $ref: '#/components/responses/City'
+        '404':
+          $ref: '#/components/responses/ErrorModel'
+          summary: Not Found
+        default:
+          $ref: '#/components/responses/ErrorModel'
+  /_health:
+    get:
+      tags:
+        - Health
+      summary: Get Health Check Status
+      description: Returns the health check for the service
+      operationId: getHealthCheck
+      security:
+        - api_key:
+            - health:get
+      responses:
+        '200':
+          $ref: '#/components/responses/HealthCheck'
+        '401':
+          summary: Unauthorized
+          $ref: '#/components/responses/ErrorModel'
+        default:
+          $ref: '#/components/responses/ErrorModel'
+components:
+  schemas:
+    HealthCheckResult:
+      title: Health Check Result
+      type: object
+      required:
+        - ok
+      properties:
+        ok:
+          type: boolean
+    ErrorModel:
+      title: Error Model
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: integer
+          minimum: 100
+          maximum: 600
+        message:
+          type: string
+    City:
+      title: City
+      type: object
+      required:
+        - id
+        - name
+        - country
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        country:
+          type: string
+      examples:
+        - id: thurles
+          name: Thurles
+          country: Republic of Ireland
+  responses:
+    GetCity:
+      $ref: '#/components/responses/City'
+    GetHealthCheck:
+      $ref: '#/components/responses/HealthCheck'
+    ErrorResponse:
+      $ref: '#/components/responses/ErrorModel'
+    ErrorModel:
+      description: Returns health check result
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/ErrorModel'
+    City:
+      description: Returns city result
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/City'
+    HealthCheck:
+      description: Returns health check result
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/HealthCheckResult'
+  examples:
+    CityThurles:
+      summary: The city of Thurles in the Republic of Ireland
+      value: '{"id": "thurles", "name": "Thurles", "country": "Republic of Ireland"}'
+  parameters:
+    PathCityID:
+      in: path
+      name: id
+      schema:
+        type: string
+      required: true
+      description: Identifier
+      examples:
+        london:
+          summary: The city of London in England
+          value: london
+        paris:
+          summary: The city of Paris in France
+          value: paris
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-API-Key
+      in: header
+x-tagGroups:
+  - name: Intro
+    tags:
+      - Intro
+  - name: API
+    tags:
+      - Health
+      - City

@@ -1,6 +1,6 @@
 import type { FastifyError, FastifyReply, FastifyRequest } from "fastify"
 
-import { BadRequestError, InternalServerError, UnauthorizedError } from "./errors"
+import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from "./errors"
 
 export const errorHandler = async (
   error: FastifyError,
@@ -13,6 +13,11 @@ export const errorHandler = async (
   if (error instanceof BadRequestError)
     return reply.status(400).send({
       status: 400,
+      message: error.message,
+    })
+  if (error instanceof NotFoundError)
+    return reply.status(404).send({
+      status: 404,
       message: error.message,
     })
   if (error instanceof UnauthorizedError)

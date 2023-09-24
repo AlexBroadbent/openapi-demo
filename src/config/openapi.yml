@@ -1,12 +1,9 @@
+---
 openapi: 3.1.0
 
 info:
   title: OpenAPI Demo
   version: 0.1.0
-  license:
-    identifier: Apache-2.0
-    name: Apache License 2.0
-    url: https://spdx.org/licenses/Apache-2.0.html
   description: Alex's OpenAPI Demo sandbox
   x-logo:
     url: logo.png
@@ -27,18 +24,44 @@ x-tagGroups:
   - name: API
     tags:
       - Health
+      - City
 
 tags:
   - name: Intro
     description: |
-      Hello and welcome to my OpenAPI Demo Sandbox.
+      Hello and welcome to my OpenAPI Demo.
 
       I'm going to use this API as an example of how to use OpenAPI with a variety of tools.
 
   - name: Health
     description: Check the health status of the server.
 
+  - name: City
+    description: |
+      Cities are a representation of a city within a country,
+
 paths:
+  "/city/{id}":
+    get:
+      tags:
+        - City
+      summary: Get City
+      description: Get a city given an ID
+      operationId: getCity
+      security:
+          - api_key:
+              - city:get
+      parameters:
+        - $ref: '#/components/parameters/PathCityID'
+      responses:
+        "200":
+          $ref: '#/components/responses/GetCity'
+        "404":
+          $ref: '#/components/responses/ErrorResponse'
+          summary: Not Found
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+
   "/_health":
     get:
       tags:
@@ -51,19 +74,12 @@ paths:
             - health:get
       responses:
         "200":
-          description: Returns health check result
-          content:
-            application/json:
-              schema:
-                type: object
-                required: ["data"]
-                properties:
-                  data:
-                    $ref: "#/components/schemas/HealthCheckResult"
+          $ref: '#/components/responses/GetHealthCheck'
         "401":
-          $ref: "#/components/responses/ErrorResponse"
+          summary: Unauthorized
+          $ref: '#/components/responses/ErrorResponse'
         default:
-          $ref: "#/components/responses/ErrorResponse"
+          $ref: '#/components/responses/ErrorResponse'
 
 components:
   schemas:
@@ -71,27 +87,25 @@ components:
       $ref: ./schemas/HealthCheckResult.yml
     ErrorModel:
       $ref: ./schemas/ErrorModel.yml
+    City:
+      $ref: ./schemas/City.yml
 
   responses:
+    GetCity:
+      $ref: ./responses/City.yml
+    GetHealthCheck:
+      $ref: ./responses/HealthCheck.yml
     ErrorResponse:
-      description: Error
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - status
-              - message
-            properties:
-              status:
-                type: number
-                description: HTTP response code
-              message:
-                type: string
-                description: Message which describes the error
+      $ref: ./responses/ErrorModel.yml
+
+  examples:
+    CityThurles:
+      $ref: ./examples/CityThurles.yml
+
+  parameters:
+    PathCityID:
+      $ref: ./parameters/PathCityID.yml
 
   securitySchemes:
     api_key:
-      type: apiKey
-      name: X-API-Key
-      in: header
+      $ref: ./securitySchemes/APIKey.yml

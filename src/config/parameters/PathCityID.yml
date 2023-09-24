@@ -1,0 +1,13 @@
+in: path
+name: id
+schema:
+  type: string
+required: true
+description: Identifier
+examples:
+  london:
+    summary: The city of London in England
+    value: london
+  paris:
+    summary: The city of Paris in France
+    value: paris

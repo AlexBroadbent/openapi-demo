@@ -1,0 +1,21 @@
+description: Returns health check result
+content:
+    application/json:
+    schema:
+        type: object
+        required:
+            - data
+        properties:
+        data:
+            title: Error Model
+            type: object
+            required:
+              - status
+              - message
+            properties:
+              status:
+                type: integer
+                minimum: 100
+                maximum: 600
+              message:
+                type: string

@@ -5,6 +5,13 @@
 
 
 export interface paths {
+  "/city/{id}": {
+    /**
+     * Get City
+     * @description Get a city given an ID
+     */
+    get: operations["getCity"];
+  };
   "/_health": {
     /**
      * Get Health Check Status
@@ -18,23 +25,55 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    HealthCheckResult: external["schemas/HealthCheckResult.yml"];
-    ErrorModel: external["schemas/ErrorModel.yml"];
+    /** Health Check Result */
+    HealthCheckResult: {
+      ok: boolean;
+    };
+    /** Error Model */
+    ErrorModel: {
+      status: number;
+      message: string;
+    };
+    /** City */
+    City: {
+      id: string;
+      name: string;
+      country: string;
+    };
   };
   responses: {
-    /** @description Error */
-    ErrorResponse: {
+    GetCity: components["responses"]["City"];
+    GetHealthCheck: components["responses"]["HealthCheck"];
+    ErrorResponse: components["responses"]["ErrorModel"];
+    /** @description Returns health check result */
+    ErrorModel: {
       content: {
         "application/json": {
-          /** @description HTTP response code */
-          status: number;
-          /** @description Message which describes the error */
-          message: string;
+          data: components["schemas"]["ErrorModel"];
+        };
+      };
+    };
+    /** @description Returns city result */
+    City: {
+      content: {
+        "application/json": {
+          data: components["schemas"]["City"];
+        };
+      };
+    };
+    /** @description Returns health check result */
+    HealthCheck: {
+      content: {
+        "application/json": {
+          data: components["schemas"]["HealthCheckResult"];
         };
       };
     };
   };
-  parameters: never;
+  parameters: {
+    /** @description Identifier */
+    PathCityID: string;
+  };
   requestBodies: never;
   headers: never;
   pathItems: never;
@@ -42,34 +81,37 @@ export interface components {
 
 export type $defs = Record<string, never>;
 
-export interface external {
-  "schemas/ErrorModel.yml": {
-    status: number;
-    message: string;
-  };
-  "schemas/HealthCheckResult.yml": {
-    ok: boolean;
-  };
-}
+export type external = Record<string, never>;
 
 export interface operations {
 
+  /**
+   * Get City
+   * @description Get a city given an ID
+   */
+  getCity: {
+    parameters: {
+      path: {
+        id: components["parameters"]["PathCityID"];
+      };
+    };
+    responses: {
+      200: components["responses"]["City"];
+      /** Not Found */
+      404: components["responses"]["ErrorModel"];
+      default: components["responses"]["ErrorModel"];
+    };
+  };
   /**
    * Get Health Check Status
    * @description Returns the health check for the service
    */
   getHealthCheck: {
     responses: {
-      /** @description Returns health check result */
-      200: {
-        content: {
-          "application/json": {
-            data: components["schemas"]["HealthCheckResult"];
-          };
-        };
-      };
-      401: components["responses"]["ErrorResponse"];
-      default: components["responses"]["ErrorResponse"];
+      200: components["responses"]["HealthCheck"];
+      /** Unauthorized */
+      401: components["responses"]["ErrorModel"];
+      default: components["responses"]["ErrorModel"];
     };
   };
 }

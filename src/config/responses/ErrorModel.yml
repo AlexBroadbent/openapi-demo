@@ -1,0 +1,10 @@
+description: Returns health check result
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: ../schemas/ErrorModel.yml

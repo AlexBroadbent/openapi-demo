@@ -3,11 +3,13 @@ import { BadRequestError, UnauthorizedError } from "./errors"
 
 export type APIKey = { name: string; token: string; permissions: string[] }
 
+console.log(JSON.parse(process.env.API_PERMISSIONS as string))
+
 const keys: APIKey[] = [
   {
     name: "Test Token",
-    token: "test",
-    permissions: ["health:get"],
+    token: process.env.API_KEY as string,
+    permissions: JSON.parse(process.env.API_PERMISSIONS as string),
   },
 ]
 

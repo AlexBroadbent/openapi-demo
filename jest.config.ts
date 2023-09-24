@@ -5,6 +5,7 @@ const config: Config = {
   verbose: true,
   testEnvironment: "node",
   moduleFileExtensions: ["js", "ts", "d.ts"],
+  setupFilesAfterEnv: ["dotenv-flow/config"],
   transform: {
     "^.+\\.(t|j)sx?$": "@swc/jest",
   },

@@ -1,0 +1,17 @@
+title: City
+type: object
+required:
+  - id
+  - name
+  - country
+properties:
+  id:
+    type: string
+  name:
+    type: string
+  country:
+    type: string
+examples:
+  - id: thurles
+    name: Thurles
+    country: Republic of Ireland
