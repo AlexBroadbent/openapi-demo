@@ -7,10 +7,13 @@ required:
 properties:
   id:
     type: string
+    description: City Identifier
   name:
     type: string
+    description: Name of the city
   country:
     type: string
+    description: The country which the city is in
 examples:
   - id: thurles
     name: Thurles

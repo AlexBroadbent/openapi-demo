@@ -10,6 +10,9 @@ info:
     name: Alexander Broadbent
     url: https://abroadbent.com
     email: hello@abroadbent.com
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
 servers:
   - url: http://localhost:8000/v1
     description: Local
@@ -41,8 +44,27 @@ paths:
         '200':
           $ref: '#/components/responses/City'
         '404':
+          $ref: '#/components/responses/NotFoundError'
+        default:
           $ref: '#/components/responses/ErrorModel'
-          summary: Not Found
+  /route:
+    get:
+      tags:
+        - Route
+      summary: Get a Route
+      description: Get a route between two cities
+      operationId: getRoute
+      security:
+        - api_key:
+            - route:get
+      parameters:
+        - $ref: '#/components/parameters/QueryFrom'
+        - $ref: '#/components/parameters/QueryTo'
+      responses:
+        '200':
+          $ref: '#/components/responses/Route'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
         default:
           $ref: '#/components/responses/ErrorModel'
   /_health:
@@ -96,23 +118,76 @@ components:
       properties:
         id:
           type: string
+          description: City Identifier
         name:
           type: string
+          description: Name of the city
         country:
           type: string
+          description: The country which the city is in
       examples:
         - id: thurles
           name: Thurles
           country: Republic of Ireland
+    Route:
+      title: Route
+      description: |
+        A route between two cities (`from` and `to`), with a distance of miles
+      type: object
+      required:
+        - from
+        - to
+        - miles
+      properties:
+        from:
+          type: string
+          description: A city identifier
+        to:
+          type: string
+          description: A city identifier
+        miles:
+          type: integer
+          format: int32
+          description: The distance in miles between the two cities
+      examples:
+        - from: london
+          to: milan
+          miles: 819
   responses:
     GetCity:
       $ref: '#/components/responses/City'
+    GetRoute:
+      $ref: '#/components/responses/Route'
     GetHealthCheck:
       $ref: '#/components/responses/HealthCheck'
     ErrorResponse:
       $ref: '#/components/responses/ErrorModel'
+    NotFoundError:
+      description: An error returned when the requested resource cannot be found
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                title: Not Found Error
+                type: object
+                required:
+                  - status
+                  - message
+                properties:
+                  status:
+                    type: integer
+                    enum:
+                      - 404
+                  message:
+                    type: string
+                    enum:
+                      - Not Found
     ErrorModel:
-      description: Returns health check result
+      description: Error when there is a problem while fulfilling the request
       content:
         application/json:
           schema:
@@ -133,6 +208,17 @@ components:
             properties:
               data:
                 $ref: '#/components/schemas/City'
+    Route:
+      description: Returns route result
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/Route'
     HealthCheck:
       description: Returns health check result
       content:
@@ -155,14 +241,24 @@ components:
       schema:
         type: string
       required: true
-      description: Identifier
-      examples:
-        london:
-          summary: The city of London in England
-          value: london
-        paris:
-          summary: The city of Paris in France
-          value: paris
+      description: City Identifier
+      example: paris
+    QueryFrom:
+      in: query
+      name: to
+      schema:
+        type: string
+      required: true
+      description: City Identifier
+      example: london
+    QueryTo:
+      in: query
+      name: from
+      schema:
+        type: string
+      required: true
+      description: City Identifier
+      example: milan
   securitySchemes:
     api_key:
       type: apiKey
@@ -176,3 +272,4 @@ x-tagGroups:
     tags:
       - Health
       - City
+      - Route

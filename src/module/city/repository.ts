@@ -10,5 +10,5 @@ const store: City[] = [
 
 export const getCity = async (id: City["id"]): Promise<City | null> => {
   const result = store.find((city) => city.id === id)
-  return result ? result : null
+  return result ?? null
 }

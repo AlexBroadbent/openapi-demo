@@ -1,7 +1,7 @@
-in: path
-name: id
+in: query
+name: to
 schema:
   type: string
 required: true
 description: City Identifier
-example: paris
+example: london

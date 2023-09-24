@@ -12,6 +12,9 @@ info:
     name: Alexander Broadbent
     url: https://abroadbent.com
     email: hello@abroadbent.com
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
 
 servers:
   - url: http://localhost:8000/v1
@@ -25,6 +28,7 @@ x-tagGroups:
     tags:
       - Health
       - City
+      - Route
 
 tags:
   - name: Intro
@@ -57,8 +61,28 @@ paths:
         "200":
           $ref: '#/components/responses/GetCity'
         "404":
+          $ref: '#/components/responses/NotFoundError'
+        default:
           $ref: '#/components/responses/ErrorResponse'
-          summary: Not Found
+
+  "/route":
+    get:
+      tags:
+        - Route
+      summary: Get a Route
+      description: Get a route between two cities
+      operationId: getRoute
+      security:
+          - api_key:
+              - route:get
+      parameters:
+        - $ref: '#/components/parameters/QueryFrom'
+        - $ref: '#/components/parameters/QueryTo'
+      responses:
+        "200":
+          $ref: '#/components/responses/GetRoute'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
         default:
           $ref: '#/components/responses/ErrorResponse'
 
@@ -89,14 +113,20 @@ components:
       $ref: ./schemas/ErrorModel.yml
     City:
       $ref: ./schemas/City.yml
+    Route:
+      $ref: ./schemas/Route.yml
 
   responses:
     GetCity:
       $ref: ./responses/City.yml
+    GetRoute:
+      $ref: ./responses/Route.yml
     GetHealthCheck:
       $ref: ./responses/HealthCheck.yml
     ErrorResponse:
       $ref: ./responses/ErrorModel.yml
+    NotFoundError:
+      $ref: ./responses/NotFoundError.yml
 
   examples:
     CityThurles:
@@ -105,6 +135,10 @@ components:
   parameters:
     PathCityID:
       $ref: ./parameters/PathCityID.yml
+    QueryFrom:
+      $ref: ./parameters/QueryFrom.yml
+    QueryTo:
+      $ref: ./parameters/QueryTo.yml
 
   securitySchemes:
     api_key:

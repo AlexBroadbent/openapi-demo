@@ -1,4 +1,4 @@
-description: Error when there is a problem while fulfilling the request
+description: Returns route result
 content:
   application/json:
     schema:
@@ -7,4 +7,5 @@ content:
         - data
       properties:
         data:
-          $ref: ../schemas/ErrorModel.yml
+          $ref: ../schemas/Route.yml
+

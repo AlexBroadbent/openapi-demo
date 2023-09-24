@@ -1,0 +1,23 @@
+title: Route
+description: |
+  A route between two cities (`from` and `to`), with a distance of miles
+type: object
+required:
+  - from
+  - to
+  - miles
+properties:
+  from:
+    type: string
+    description: A city identifier
+  to:
+    type: string
+    description: A city identifier
+  miles:
+    type: integer
+    format: int32
+    description: The distance in miles between the two cities
+examples:
+  - from: london
+    to: milan
+    miles: 819

@@ -3,7 +3,7 @@ import type { FastifyInstance, LightMyRequestResponse } from "fastify"
 import { getTestServer } from "./helpers"
 import { describe } from "node:test"
 
-describe("city", () => {
+describe("route", () => {
   let server: FastifyInstance
 
   beforeAll(async () => {
@@ -14,14 +14,14 @@ describe("city", () => {
     await server.close()
   })
 
-  describe("GET /v1/city", () => {
-    describe("when valid city is requested", () => {
+  describe("GET /v1/route", () => {
+    describe("when valid route is requested", () => {
       let response: LightMyRequestResponse
 
       beforeAll(async () => {
         response = await server.inject({
           method: "GET",
-          url: "/v1/city/london",
+          url: "/v1/route?from=london&to=paris",
         })
       })
 
@@ -29,22 +29,22 @@ describe("city", () => {
         expect(response.statusCode).toStrictEqual(200)
       })
 
-      it("should return JSON body with city", () => {
+      it("should return JSON body with route", () => {
         expect(response.json().data).toMatchObject({
-          id: "london",
-          name: "London",
-          country: "United Kingdom",
+          from: "london",
+          to: "paris",
+          miles: 288,
         })
       })
     })
 
-    describe("when invalid city is requested", () => {
+    describe("when invalid route is requested", () => {
       let response: LightMyRequestResponse
 
       beforeAll(async () => {
         response = await server.inject({
           method: "GET",
-          url: "/v1/city/gotham",
+          url: "/v1/route?from=gotham&to=zion",
         })
       })
 
@@ -52,10 +52,10 @@ describe("city", () => {
         expect(response.statusCode).toStrictEqual(404)
       })
 
-      it("should return JSON body with error message", () => {
+      it("should return JSON body with error response", () => {
         expect(response.json()).toMatchObject({
           status: 404,
-          message: "City not found",
+          message: "Route not found",
         })
       })
     })

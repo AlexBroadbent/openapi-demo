@@ -1,21 +1,23 @@
-description: Returns health check result
+description: An error returned when the requested resource cannot be found
 content:
-    application/json:
+  application/json:
     schema:
-        type: object
-        required:
-            - data
-        properties:
+      type: object
+      required:
+        - data
+      properties:
         data:
-            title: Error Model
-            type: object
-            required:
-              - status
-              - message
-            properties:
-              status:
-                type: integer
-                minimum: 100
-                maximum: 600
-              message:
-                type: string
+          title: Not Found Error
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              enum:
+                - 404
+            message:
+              type: string
+              enum:
+                - Not Found
