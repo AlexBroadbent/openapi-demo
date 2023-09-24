@@ -7,7 +7,7 @@ import { cityController } from "../module/city/controller"
 import { routeController } from "../module/route/controller"
 import securityHandlers from "./security-handlers"
 
-const specification = path.join(__dirname, "../config/openapi.bundle.json")
+const specification = path.join(__dirname, "../config/openapi.bundle.yml")
 
 const service = {
   ...healthController,

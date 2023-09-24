@@ -219,6 +219,15 @@ components:
             properties:
               data:
                 $ref: '#/components/schemas/Route'
+      links:
+        getFromCity:
+          operationId: getCity
+          parameters:
+            id: $response.body#/data/from
+        getToCity:
+          operationId: getCity
+          parameters:
+            id: $response.body#/data/to
     HealthCheck:
       description: Returns health check result
       content:

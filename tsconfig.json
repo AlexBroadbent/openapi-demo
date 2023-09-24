@@ -3,7 +3,7 @@
   "include": [
     "src/**/*",
     "src/config/openapi.yml",
-    "src/config/openapi.bundle.json"
+    "src/config/openapi.bundle.yml"
   ],
   "exclude": [
     "node_modules"

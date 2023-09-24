@@ -10,7 +10,7 @@
     "lint:fix": "pnpm run lint --fix",
     "prettier": "prettier --write '**/*.ts'",
     "build": "tsc",
-    "dev": "nodemon -r dotenv-flow/config --watch src --files src/index.ts",
+    "dev": "NODE_ENV=local nodemon -r dotenv-flow/config --watch src --files src/index.ts",
     "test": "NODE_ENV=local jest --maxWorkers=25%",
     "openapi:generate-schema": "redocly bundle src/config/openapi.yml -o src/config/openapi.bundle.yml",
     "openapi:generate-types": "openapi-typescript src/config/openapi.bundle.yml --output src/types/generated/openapi-schema.ts",
