@@ -1,0 +1,7 @@
+description: Route result
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/Route.yml
+    example:
+      $ref: ../examples/RouteParisMilan.yml

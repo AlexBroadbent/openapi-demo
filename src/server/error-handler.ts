@@ -1,6 +1,9 @@
 import type { FastifyError, FastifyReply, FastifyRequest } from "fastify"
 
-import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from "./errors"
+import { ErrorModel } from "../types/schemas"
+
+const isErrorModel = (error: FastifyError | ErrorModel): error is ErrorModel =>
+  (error as ErrorModel).status !== undefined
 
 export const errorHandler = async (
   error: FastifyError,
@@ -10,29 +13,15 @@ export const errorHandler = async (
   console.error(error)
   request.log.error(error)
 
-  if (error instanceof BadRequestError)
-    return reply.status(400).send({
-      status: 400,
+  if (isErrorModel(error)) {
+    return reply.status(error.status).send({
+      status: error.status,
       message: error.message,
     })
-  if (error instanceof NotFoundError)
-    return reply.status(404).send({
-      status: 404,
-      message: error.message,
-    })
-  if (error instanceof UnauthorizedError)
-    return reply.status(401).send({
-      status: 401,
-      message: error.message,
-    })
-  if (error instanceof InternalServerError)
-    return reply.status(500).send({
-      status: 500,
-      message: error.message,
-    })
+  }
 
   return reply.status(error.statusCode || 500).send({
     status: error.statusCode || 500,
-    message: error instanceof InternalServerError ? error.message : "Internal Server Error",
+    message: error.message ?? "Internal Server Error",
   })
 }

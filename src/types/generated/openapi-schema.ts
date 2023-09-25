@@ -18,6 +18,11 @@ export interface paths {
      * @description Get a route between two cities
      */
     get: operations["getRoute"];
+    /**
+     * Create a Route
+     * @description Create a route between two cities with a given milage
+     */
+    post: operations["createRoute"];
   };
   "/_health": {
     /**
@@ -135,7 +140,21 @@ export interface components {
      */
     QueryTo: string;
   };
-  requestBodies: never;
+  requestBodies: {
+    /** @description Route result */
+    CreateRoute?: {
+      content: {
+        /**
+         * @example {
+         *   "from": "paris",
+         *   "to": "milan",
+         *   "miles": 529
+         * }
+         */
+        "application/json": components["schemas"]["Route"];
+      };
+    };
+  };
   headers: never;
   pathItems: never;
 }
@@ -173,6 +192,18 @@ export interface operations {
         from: components["parameters"]["QueryTo"];
       };
     };
+    responses: {
+      200: components["responses"]["Route"];
+      404: components["responses"]["NotFoundError"];
+      default: components["responses"]["ErrorModel"];
+    };
+  };
+  /**
+   * Create a Route
+   * @description Create a route between two cities with a given milage
+   */
+  createRoute: {
+    requestBody: components["requestBodies"]["CreateRoute"];
     responses: {
       200: components["responses"]["Route"];
       404: components["responses"]["NotFoundError"];

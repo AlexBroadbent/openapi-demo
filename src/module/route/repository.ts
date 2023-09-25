@@ -27,3 +27,8 @@ export const getRoute = async (from: City["id"], to: City["id"]): Promise<Route 
   const result = store.find((route) => route.from === from && route.to === to)
   return result ?? null
 }
+
+export const createRoute = async (route: Route): Promise<Route> => {
+  store.push(route)
+  return route
+}

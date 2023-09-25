@@ -85,6 +85,24 @@ paths:
           $ref: '#/components/responses/NotFoundError'
         default:
           $ref: '#/components/responses/ErrorResponse'
+    post:
+      tags:
+        - Route
+      summary: Create a Route
+      description: Create a route between two cities with a given milage
+      operationId: createRoute
+      security:
+          - api_key:
+              - route:create
+      requestBody:
+        $ref: '#/components/requestBodies/CreateRoute'
+      responses:
+        "200":
+          $ref: '#/components/responses/GetRoute'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
 
   "/_health":
     get:
@@ -115,6 +133,10 @@ components:
       $ref: ./schemas/City.yml
     Route:
       $ref: ./schemas/Route.yml
+
+  requestBodies:
+    CreateRoute:
+      $ref: ./requestBodies/CreateRoute.yml
 
   responses:
     GetCity:
