@@ -1,6 +1,13 @@
 extends:
-- recommended
+  - recommended
+
+rules:
+  info-license-url: off
 
 apis:
   api:
+    root: ./src/config/openapi.yml
+    decorators:
+      remove-x-internal: on
+  internal:
     root: ./src/config/openapi.yml

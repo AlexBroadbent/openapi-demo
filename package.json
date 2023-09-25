@@ -11,14 +11,13 @@
     "prettier": "prettier --write '**/*.ts'",
     "build": "tsc",
     "dev": "NODE_ENV=local nodemon -r dotenv-flow/config --watch src --files src/index.ts",
-    "test": "NODE_ENV=local jest --maxWorkers=25%",
-    "openapi:generate-schema": "redocly bundle src/config/openapi.yml -o src/config/openapi.bundle.yml",
-    "openapi:generate-types": "openapi-typescript src/config/openapi.bundle.yml --output src/types/generated/openapi-schema.ts",
-    "openapi": "pnpm openapi:generate-schema && pnpm openapi:generate-types",
-    "docs:generate": "redocly build-docs -o ./docs/index.html",
-    "docs:preview": "redocly preview-docs -p 3000 src/config/openapi.bundle.yml",
+    "test": "jest",
+    "openapi:generate-internal": "redocly bundle internal -o src/config/openapi-internal.bundle.yml",
+    "openapi:generate-api": "redocly bundle api -o src/config/openapi.bundle.yml && redocly bundle api -o src/config/openapi.bundle.json",
+    "openapi:generate-types": "openapi-typescript src/config/openapi-internal.bundle.yml --output src/types/generated/openapi-schema.ts",
+    "openapi": "pnpm openapi:generate-internal && pnpm openapi:generate-api && pnpm openapi:generate-types",
     "docs:validate": "redocly lint --lint-config error",
-    "docs:build": "pnpm docs:validate && pnpm docs:generate"
+    "docs:preview": "redocly preview-docs -p 3000 src/config/openapi.bundle.yml"
   },
   "repository": {
     "type": "git",

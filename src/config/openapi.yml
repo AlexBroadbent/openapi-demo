@@ -15,7 +15,6 @@ info:
   license:
     name: Apache 2.0
     identifier: Apache-2.0
-
 servers:
   - url: http://localhost:8000/v1
     description: Local
@@ -53,17 +52,17 @@ paths:
       description: Get a city given an ID
       operationId: getCity
       security:
-          - api_key:
-              - city:get
+        - api_key:
+            - city:get
       parameters:
-        - $ref: '#/components/parameters/PathCityID'
+        - $ref: "#/components/parameters/PathCityID"
       responses:
         "200":
-          $ref: '#/components/responses/GetCity'
+          $ref: "#/components/responses/GetCity"
         "404":
-          $ref: '#/components/responses/NotFoundError'
+          $ref: "#/components/responses/NotFoundError"
         default:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "#/components/responses/ErrorResponse"
 
   "/route":
     get:
@@ -73,36 +72,37 @@ paths:
       description: Get a route between two cities
       operationId: getRoute
       security:
-          - api_key:
-              - route:get
+        - api_key:
+            - route:get
       parameters:
-        - $ref: '#/components/parameters/QueryFrom'
-        - $ref: '#/components/parameters/QueryTo'
+        - $ref: "#/components/parameters/QueryFrom"
+        - $ref: "#/components/parameters/QueryTo"
       responses:
         "200":
-          $ref: '#/components/responses/GetRoute'
+          $ref: "#/components/responses/GetRoute"
         "404":
-          $ref: '#/components/responses/NotFoundError'
+          $ref: "#/components/responses/NotFoundError"
         default:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "#/components/responses/ErrorResponse"
     post:
       tags:
         - Route
       summary: Create a Route
       description: Create a route between two cities with a given milage
       operationId: createRoute
+      x-internal: true
       security:
-          - api_key:
-              - route:create
+        - api_key:
+            - route:create
       requestBody:
-        $ref: '#/components/requestBodies/CreateRoute'
+        $ref: "#/components/requestBodies/CreateRoute"
       responses:
         "200":
-          $ref: '#/components/responses/GetRoute'
+          $ref: "#/components/responses/GetRoute"
         "404":
-          $ref: '#/components/responses/NotFoundError'
+          $ref: "#/components/responses/NotFoundError"
         default:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "#/components/responses/ErrorResponse"
 
   "/_health":
     get:
@@ -116,12 +116,12 @@ paths:
             - health:get
       responses:
         "200":
-          $ref: '#/components/responses/GetHealthCheck'
+          $ref: "#/components/responses/GetHealthCheck"
         "401":
           summary: Unauthorized
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "#/components/responses/ErrorResponse"
         default:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "#/components/responses/ErrorResponse"
 
 components:
   schemas:

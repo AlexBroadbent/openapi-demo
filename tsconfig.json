@@ -1,19 +1,10 @@
 {
   "extends": "@tsconfig/node18/tsconfig.json",
-  "include": [
-    "src/**/*",
-    "src/config/openapi.yml",
-    "src/config/openapi.bundle.yml"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["src/**/*", "src/config/openapi*"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "./build",
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
-  "typeRoots": [
-    "src/types",
-    "node_modules/@types"
-  ]
+  "typeRoots": ["src/types", "node_modules/@types"]
 }
