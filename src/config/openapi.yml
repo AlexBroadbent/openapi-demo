@@ -123,6 +123,10 @@ paths:
         default:
           $ref: "#/components/responses/ErrorResponse"
 
+webhooks:
+  CityCreated:
+    $ref: ./webhooks/CityCreated.yml
+
 components:
   schemas:
     HealthCheckResult:

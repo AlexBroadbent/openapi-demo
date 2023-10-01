@@ -60,4 +60,35 @@ describe("route", () => {
       })
     })
   })
+
+  describe("POST /v1/routes", () => {
+    describe("when valid route is requested", () => {
+      let response: LightMyRequestResponse
+
+      beforeAll(async () => {
+        response = await server.inject({
+          method: "POST",
+          url: "/v1/route",
+          headers: { "content-type": "application/json", "x-api-key": "admin" },
+          body: JSON.stringify({
+            from: "manchester",
+            to: "london",
+            miles: 248,
+          }),
+        })
+      })
+
+      it("should return 200 OK status code", () => {
+        expect(response.statusCode).toStrictEqual(200)
+      })
+
+      it("should return JSON body with route", () => {
+        expect(response.json().data).toMatchObject({
+          from: "manchester",
+          to: "london",
+          miles: 248,
+        })
+      })
+    })
+  })
 })

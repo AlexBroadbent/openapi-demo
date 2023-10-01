@@ -1,8 +1,7 @@
-import type { FastifyInstance, FastifyServerOptions } from "fastify"
-import fastify from "fastify"
+import fastify, { FastifyInstance, FastifyServerOptions } from "fastify"
 
 import { errorHandler } from "./error-handler"
-import { routes } from "./routes"
+import { registerAPIRoutes } from "./routes"
 
 export const getServer = async (options: FastifyServerOptions = {}): Promise<FastifyInstance> => {
   const server = fastify(options).setErrorHandler(errorHandler)
@@ -11,7 +10,7 @@ export const getServer = async (options: FastifyServerOptions = {}): Promise<Fas
     server.log.fatal(error, origin)
   })
 
-  await routes(server)
+  await registerAPIRoutes(server)
 
   return server
 }

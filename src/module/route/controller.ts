@@ -2,7 +2,8 @@ import type { FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
 import { Route } from "../../types/schemas"
-import { JsonResponse, RequestBody, QueryParams } from "../../types/types"
+import { JsonResponse, QueryParams, RequestBody } from "../../types/types"
+import { sendWebhook } from "../webhook/service"
 import { createRoute, getRoute } from "./repository"
 
 export const routeController = {
@@ -29,7 +30,7 @@ export const routeController = {
 
     const data = await createRoute(route)
 
-    if (!data) throw new NotFoundError("Route not found")
+    await sendWebhook(route)
 
     return { data }
   },

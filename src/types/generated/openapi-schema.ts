@@ -33,7 +33,15 @@ export interface paths {
   };
 }
 
-export type webhooks = Record<string, never>;
+export interface webhooks {
+  "CityCreated": {
+    /**
+     * City Created Event
+     * @description An event that is posted when a new city is created
+     */
+    post: operations["cityCreatedEvent"];
+  };
+}
 
 export interface components {
   schemas: {
@@ -215,6 +223,24 @@ export interface operations {
       /** Unauthorized */
       401: components["responses"]["ErrorModel"];
       default: components["responses"]["ErrorModel"];
+    };
+  };
+  /**
+   * City Created Event
+   * @description An event that is posted when a new city is created
+   */
+  cityCreatedEvent: {
+    /** @description City */
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["City"];
+      };
+    };
+    responses: {
+      /** @description Return a 200 status to indicate that the data was received successfully */
+      200: {
+        content: never;
+      };
     };
   };
 }

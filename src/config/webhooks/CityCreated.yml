@@ -1,0 +1,16 @@
+post:
+  summary: City Created Event
+  description: An event that is posted when a new city is created
+  tags:
+    - City
+  security: []
+  operationId: cityCreatedEvent
+  requestBody:
+    description: City
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/City.yml
+  responses:
+    200:
+      description: Return a 200 status to indicate that the data was received successfully

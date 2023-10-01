@@ -1,10 +1,9 @@
 import type { FastifyReply, FastifyRequest, RequestParamsDefault } from "fastify"
 import { BadRequestError, UnauthorizedError } from "./errors"
 
-export type APIKey = { name: string; token: string; permissions: string[] }
+export type APIKey = { token: string; permissions: string[] }
 
 if (!process.env.API_KEYS) throw Error("API_KEYS not set")
-console.log("***", process.env.API_KEYS)
 const keys: APIKey[] = JSON.parse(process.env.API_KEYS)
 
 const api_key = (request: FastifyRequest, reply: FastifyReply, params: RequestParamsDefault) => {
