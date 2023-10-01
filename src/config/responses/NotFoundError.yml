@@ -2,22 +2,17 @@ description: An error returned when the requested resource cannot be found
 content:
   application/json:
     schema:
+      title: Not Found Error
       type: object
       required:
-        - data
+        - status
+        - message
       properties:
-        data:
-          title: Not Found Error
-          type: object
-          required:
-            - status
-            - message
-          properties:
-            status:
-              type: integer
-              enum:
-                - 404
-            message:
-              type: string
-              enum:
-                - Not Found
+        status:
+          type: integer
+          enum:
+            - 404
+        message:
+          type: string
+          enum:
+            - Not Found

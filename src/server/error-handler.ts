@@ -10,7 +10,6 @@ export const errorHandler = async (
   request: FastifyRequest,
   reply: FastifyReply,
 ): Promise<void> => {
-  console.error(error)
   request.log.error(error)
 
   if (isErrorModel(error)) {

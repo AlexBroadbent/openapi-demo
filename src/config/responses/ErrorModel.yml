@@ -2,9 +2,4 @@ description: Error when there is a problem while fulfilling the request
 content:
   application/json:
     schema:
-      type: object
-      required:
-        - data
-      properties:
-        data:
-          $ref: ../schemas/ErrorModel.yml
+      $ref: ../schemas/ErrorModel.yml
