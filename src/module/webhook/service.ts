@@ -1,4 +1,4 @@
-import fetch, { AbortError } from "node-fetch"
+import fetch, { FetchError } from "node-fetch"
 
 if (!process.env.WEBHOOK_URL) throw Error("WEBHOOK_URL is required")
 const webhookUrl = process.env.WEBHOOK_URL
@@ -22,7 +22,7 @@ export const sendWebhook = async (body: unknown) => {
 
     if (result.status !== 200) console.log("WebhookService: Invalid response to webhook", { result })
   } catch (error) {
-    if (error instanceof AbortError) console.error("WebhookService: Webhook request timed out")
+    if (error instanceof FetchError) console.error("WebhookService: Webhook request timed out")
     else console.error("WebhookService: Webhook failed to deliver", { error })
   } finally {
     clearTimeout(timeout)

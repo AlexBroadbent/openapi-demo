@@ -16,6 +16,6 @@ type HasJsonResponse = FilterConditionally<
 export type PathParams<operation extends keyof HasPathParameters> = operations[operation]["parameters"]["path"]
 export type QueryParams<operation extends keyof HasQueryParameters> = operations[operation]["parameters"]["query"]
 export type RequestBody<operation extends keyof HasRequestBody> =
-  operations[operation]["requestBody"]["content"]["application/json"]["schema"]
+  operations[operation]["requestBody"]["content"]["application/json"]
 export type JsonResponse<operation extends keyof HasJsonResponse> =
   operations[operation]["responses"][200]["content"]["application/json"]

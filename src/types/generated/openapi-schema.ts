@@ -145,15 +145,8 @@ export interface components {
   };
   requestBodies: {
     /** @description Route result */
-    CreateRoute?: {
+    CreateRoute: {
       content: {
-        /**
-         * @example {
-         *   "from": "paris",
-         *   "to": "milan",
-         *   "miles": 529
-         * }
-         */
         "application/json": components["schemas"]["Route"];
       };
     };

@@ -1,7 +1,6 @@
 description: Route result
+required: true
 content:
   application/json:
     schema:
       $ref: ../schemas/Route.yml
-    example:
-      $ref: ../examples/RouteParisMilan.yml
