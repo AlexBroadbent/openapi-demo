@@ -126,6 +126,8 @@ paths:
 webhooks:
   CityCreated:
     $ref: ./webhooks/CityCreated.yml
+  RouteCreated:
+    $ref: ./webhooks/RouteCreated.yml
 
 components:
   schemas:

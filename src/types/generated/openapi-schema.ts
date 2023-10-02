@@ -41,6 +41,13 @@ export interface webhooks {
      */
     post: operations["cityCreatedEvent"];
   };
+  "RouteCreated": {
+    /**
+     * Route Created Event
+     * @description An event that is posted when a new route is created
+     */
+    post: operations["routeCreatedEvent"];
+  };
 }
 
 export interface components {
@@ -124,6 +131,10 @@ export interface components {
           data: components["schemas"]["HealthCheckResult"];
         };
       };
+    };
+    /** @description Return a 200 status to indicate that the data was received successfully */
+    Webhook: {
+      content: never;
     };
   };
   parameters: {
@@ -230,10 +241,22 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Return a 200 status to indicate that the data was received successfully */
-      200: {
-        content: never;
+      200: components["responses"]["Webhook"];
+    };
+  };
+  /**
+   * Route Created Event
+   * @description An event that is posted when a new route is created
+   */
+  routeCreatedEvent: {
+    /** @description Route */
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["Route"];
       };
+    };
+    responses: {
+      200: components["responses"]["Webhook"];
     };
   };
 }

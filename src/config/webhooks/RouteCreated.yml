@@ -1,0 +1,16 @@
+post:
+  summary: Route Created Event
+  description: An event that is posted when a new route is created
+  tags:
+    - Route
+  security: []
+  operationId: routeCreatedEvent
+  requestBody:
+    description: Route
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/Route.yml
+  responses:
+    200:
+      $ref: ../responses/Webhook.yml
