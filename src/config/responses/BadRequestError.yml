@@ -1,8 +1,8 @@
-description: An error returned when the request is invalid
+description: An error returned when the requested resource cannot be found
 content:
   application/json:
     schema:
-      title: Bad Request Error
+      title: Not Found Error
       type: object
       required:
         - status
@@ -11,6 +11,8 @@ content:
         status:
           type: integer
           enum:
-            - 400
+            - 404
         message:
           type: string
+          enum:
+            - Not Found

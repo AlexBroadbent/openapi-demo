@@ -6,6 +6,8 @@ const webhookUrl = process.env.WEBHOOK_URL
 const controller = new globalThis.AbortController()
 
 export const sendWebhook = async (body: unknown) => {
+  if (process.env.WEBHOOK_ENABLED !== "true") return
+
   const timeout = setTimeout(() => {
     controller.abort()
   }, 10_000)

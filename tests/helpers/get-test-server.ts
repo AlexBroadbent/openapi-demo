@@ -2,21 +2,19 @@ import type { FastifyInstance, FastifyRequest } from "fastify"
 
 import { getServer } from "../../src/server"
 
+export type ApiKeyOption = "admin" | "test"
+
 export type GetTestServerOptions = {
-  injectApiKeyHeader?: boolean
+  injectApiKey?: ApiKeyOption
 }
 
-export const getTestServer = async ({
-  injectApiKeyHeader = false,
-}: GetTestServerOptions = {}): Promise<FastifyInstance> => {
+export const getTestServer = async ({ injectApiKey = "test" }: GetTestServerOptions = {}): Promise<FastifyInstance> => {
   const server = await getServer()
 
   server.addHook("onRequest", async (request: FastifyRequest) => {
-    if (injectApiKeyHeader) {
-      request.headers = {
-        "x-api-key": "test",
-        ...request.headers,
-      }
+    request.headers = {
+      ...request.headers,
+      "x-api-key": injectApiKey,
     }
   })
 

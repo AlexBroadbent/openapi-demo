@@ -1,0 +1,6 @@
+description: City creation request
+required: true
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/CityCreate.yml

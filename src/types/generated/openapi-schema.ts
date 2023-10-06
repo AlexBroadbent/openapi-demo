@@ -5,6 +5,13 @@
 
 
 export interface paths {
+  "/city": {
+    /**
+     * Create a City
+     * @description Create a city
+     */
+    post: operations["createCity"];
+  };
   "/city/{id}": {
     /**
      * Get City
@@ -85,6 +92,13 @@ export interface components {
        */
       miles: number;
     };
+    /** City */
+    CityCreate: {
+      /** @description Name of the city */
+      name: string;
+      /** @description The country which the city is in */
+      country: string;
+    };
   };
   responses: {
     GetCity: components["responses"]["City"];
@@ -92,13 +106,23 @@ export interface components {
     GetHealthCheck: components["responses"]["HealthCheck"];
     ErrorResponse: components["responses"]["ErrorModel"];
     /** @description An error returned when the requested resource cannot be found */
-    NotFoundError: {
+    BadRequestError: {
       content: {
         "application/json": {
           /** @enum {integer} */
           status: 404;
           /** @enum {string} */
           message: "Not Found";
+        };
+      };
+    };
+    /** @description An error returned when the request is invalid */
+    NotFoundError: {
+      content: {
+        "application/json": {
+          /** @enum {integer} */
+          status: 400;
+          message: string;
         };
       };
     };
@@ -155,7 +179,13 @@ export interface components {
     QueryTo: string;
   };
   requestBodies: {
-    /** @description Route result */
+    /** @description City creation request */
+    CreateCity: {
+      content: {
+        "application/json": components["schemas"]["CityCreate"];
+      };
+    };
+    /** @description Route creation request */
     CreateRoute: {
       content: {
         "application/json": components["schemas"]["Route"];
@@ -172,6 +202,18 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /**
+   * Create a City
+   * @description Create a city
+   */
+  createCity: {
+    requestBody: components["requestBodies"]["CreateCity"];
+    responses: {
+      200: components["responses"]["City"];
+      400: components["responses"]["BadRequestError"];
+      default: components["responses"]["ErrorModel"];
+    };
+  };
   /**
    * Get City
    * @description Get a city given an ID
@@ -213,7 +255,7 @@ export interface operations {
     requestBody: components["requestBodies"]["CreateRoute"];
     responses: {
       200: components["responses"]["Route"];
-      404: components["responses"]["NotFoundError"];
+      400: components["responses"]["BadRequestError"];
       default: components["responses"]["ErrorModel"];
     };
   };

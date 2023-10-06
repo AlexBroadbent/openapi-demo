@@ -1,4 +1,4 @@
-description: Route result
+description: Route creation request
 required: true
 content:
   application/json:

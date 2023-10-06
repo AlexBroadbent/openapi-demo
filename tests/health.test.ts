@@ -6,7 +6,7 @@ describe("health check", () => {
   let server: FastifyInstance
 
   beforeAll(async () => {
-    server = await getTestServer({ injectApiKeyHeader: true })
+    server = await getTestServer()
   })
 
   afterAll(async () => {

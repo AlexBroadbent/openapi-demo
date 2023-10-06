@@ -1,0 +1,15 @@
+title: City
+type: object
+required:
+  - name
+  - country
+properties:
+  name:
+    type: string
+    description: Name of the city
+  country:
+    type: string
+    description: The country which the city is in
+examples:
+  - name:
+    country: England

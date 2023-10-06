@@ -1,4 +1,4 @@
-import { City } from "../../types/schemas"
+import type { City } from "../../types/schemas"
 
 const store: City[] = [
   { id: "london", name: "London", country: "United Kingdom" },
@@ -11,4 +11,9 @@ const store: City[] = [
 export const getCity = async (id: City["id"]): Promise<City | null> => {
   const result = store.find((city) => city.id === id)
   return result ?? null
+}
+
+export const createCity = async (city: City): Promise<City> => {
+  store.push(city)
+  return city
 }

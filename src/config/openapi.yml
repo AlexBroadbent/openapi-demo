@@ -15,6 +15,7 @@ info:
   license:
     name: Apache 2.0
     identifier: Apache-2.0
+
 servers:
   - url: http://localhost:8000/v1
     description: Local
@@ -35,15 +36,38 @@ tags:
       Hello and welcome to my OpenAPI Demo.
 
       I'm going to use this API as an example of how to use OpenAPI with a variety of tools.
-
   - name: Health
     description: Check the health status of the server.
-
   - name: City
     description: |
-      Cities are a representation of a city within a country,
+      Cities are a representation of a city within a country.
+  - name: Route
+    description: |
+      A route is a distance, in miles, between two cities.
+
+      *Note: The distance may be different depending on the direction from one city to the other.*
 
 paths:
+  "/city":
+    post:
+      tags:
+        - City
+      summary: Create a City
+      description: Create a city
+      operationId: createCity
+      x-internal: true
+      security:
+        - api_key:
+            - city:create
+      requestBody:
+        $ref: "#/components/requestBodies/CreateCity"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCity"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
   "/city/{id}":
     get:
       tags:
@@ -63,7 +87,6 @@ paths:
           $ref: "#/components/responses/NotFoundError"
         default:
           $ref: "#/components/responses/ErrorResponse"
-
   "/route":
     get:
       tags:
@@ -99,11 +122,10 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetRoute"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
         default:
           $ref: "#/components/responses/ErrorResponse"
-
   "/_health":
     get:
       tags:
@@ -141,6 +163,8 @@ components:
       $ref: ./schemas/Route.yml
 
   requestBodies:
+    CreateCity:
+      $ref: ./requestBodies/CreateCity.yml
     CreateRoute:
       $ref: ./requestBodies/CreateRoute.yml
 
@@ -153,6 +177,8 @@ components:
       $ref: ./responses/HealthCheck.yml
     ErrorResponse:
       $ref: ./responses/ErrorModel.yml
+    BadRequestError:
+      $ref: ./responses/BadRequestError.yml
     NotFoundError:
       $ref: ./responses/NotFoundError.yml
 

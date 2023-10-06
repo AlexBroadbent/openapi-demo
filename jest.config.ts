@@ -5,10 +5,12 @@ const config: Config = {
   verbose: true,
   testEnvironment: "node",
   moduleFileExtensions: ["js", "ts", "d.ts"],
-  setupFiles: ["./setup-tests.ts"],
-  setupFilesAfterEnv: ["dotenv-flow/config"],
+  setupFilesAfterEnv: [
+    "dotenv-flow/config",
+    "./setup-tests.ts"
+  ],
   transform: {
-    "^.+\\.(t|j)sx?$": "@swc/jest",
+    "^.+\\.(j|t)sx?$": "@swc/jest",
   },
   runtime: "@side/jest-runtime",
 }
