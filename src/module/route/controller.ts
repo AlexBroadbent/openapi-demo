@@ -1,4 +1,4 @@
-import type { FastifyRequest } from "fastify"
+import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
 import { Route } from "../../types/schemas"
@@ -25,12 +25,15 @@ export const routeController = {
     req: FastifyRequest<{
       Body: RequestBody<"createRoute">
     }>,
+    rep: FastifyReply,
   ): Promise<JsonResponse<"createRoute">> => {
     const route: Route = req.body
 
     const data = await createRoute(route)
 
     await sendWebhook(route)
+
+    rep.header("Location", `/v1/route?from=${data.from}&to=${data.to}`)
 
     return { data }
   },

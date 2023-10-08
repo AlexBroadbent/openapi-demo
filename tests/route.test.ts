@@ -98,6 +98,10 @@ describe("route", () => {
           miles: 248,
         })
       })
+
+      it("should return Location header with new identifier", () => {
+        expect(response.headers["location"]).toEqual("/v1/route?from=manchester&to=london")
+      })
     })
 
     describe("when invalid route is posted in body", () => {

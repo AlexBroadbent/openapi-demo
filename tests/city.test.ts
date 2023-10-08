@@ -96,6 +96,10 @@ describe("city", () => {
           country: "England",
         })
       })
+
+      it("should return Location header with new identifier", () => {
+        expect(response.headers["location"]).toEqual("/v1/city/hertford")
+      })
     })
 
     describe("when invalid city is posted in body", () => {
