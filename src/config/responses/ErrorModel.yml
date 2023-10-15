@@ -3,3 +3,9 @@ content:
   application/json:
     schema:
       $ref: ../schemas/ErrorModel.yml
+    examples:
+      "500":
+        summary: Internal Server Error
+        value:
+          status: 500
+          message: Internal Server Error

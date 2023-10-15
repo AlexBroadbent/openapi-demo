@@ -11,5 +11,5 @@ properties:
     type: string
     description: The country which the city is in
 examples:
-  - name:
+  - name: Hertford
     country: England

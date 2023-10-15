@@ -1,0 +1,11 @@
+in: query
+name: limit
+description: maximum number of records to return
+schema:
+  type: integer
+  format: int32
+required: false
+examples:
+  Five:
+    summary: Return 5 records
+    value: 5

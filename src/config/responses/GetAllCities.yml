@@ -1,0 +1,22 @@
+description: Returns city result
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - next
+        - data
+      properties:
+        next:
+          type:
+            - string
+            - "null"
+          description: URI to next page of results
+          default: null
+        data:
+          type: array
+          items:
+            $ref: ../schemas/City.yml
+    examples:
+      ResponseCities:
+        $ref: ../examples/ResponseCities.yml

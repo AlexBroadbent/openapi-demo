@@ -15,6 +15,6 @@ properties:
     type: string
     description: The country which the city is in
 examples:
-  - id: thurles
-    name: Thurles
-    country: Republic of Ireland
+  - id: milan
+    name: Milan
+    country: Italia

@@ -1,0 +1,6 @@
+summary: The response to a GET /v1/city call with result of Thurles in the Republic of Ireland
+value:
+  data:
+    id: thurles
+    name: Thurles
+    country: Éire

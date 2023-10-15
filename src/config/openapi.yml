@@ -49,6 +49,27 @@ tags:
 
 paths:
   "/city":
+    get:
+      tags:
+        - City
+      summary: Get Cities
+      description: Get cities
+      operationId: getCities
+      security:
+        - api_key:
+            - city:get
+      parameters:
+        - $ref: "#/components/parameters/QuerySkip"
+        - $ref: "#/components/parameters/QueryLimit"
+      responses:
+        "200":
+          $ref: "#/components/responses/GetAllCities"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
     post:
       tags:
         - City
@@ -66,6 +87,8 @@ paths:
           $ref: "#/components/responses/GetCity"
         "400":
           $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         default:
           $ref: "#/components/responses/ErrorResponse"
   "/city/{id}":
@@ -83,6 +106,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetCity"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "404":
           $ref: "#/components/responses/NotFoundError"
         default:
@@ -103,6 +128,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/GetRoute"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "404":
           $ref: "#/components/responses/NotFoundError"
         default:
@@ -124,6 +151,8 @@ paths:
           $ref: "#/components/responses/GetRoute"
         "400":
           $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         default:
           $ref: "#/components/responses/ErrorResponse"
   "/_health":
@@ -140,60 +169,69 @@ paths:
         "200":
           $ref: "#/components/responses/GetHealthCheck"
         "401":
-          summary: Unauthorized
-          $ref: "#/components/responses/ErrorResponse"
+          $ref: "#/components/responses/UnauthorizedError"
         default:
           $ref: "#/components/responses/ErrorResponse"
 
 webhooks:
   CityCreated:
-    $ref: ./webhooks/CityCreated.yml
+    $ref: webhooks/CityCreated.yml
   RouteCreated:
-    $ref: ./webhooks/RouteCreated.yml
+    $ref: webhooks/RouteCreated.yml
 
 components:
   schemas:
     HealthCheckResult:
-      $ref: ./schemas/HealthCheckResult.yml
+      $ref: schemas/HealthCheckResult.yml
     ErrorModel:
-      $ref: ./schemas/ErrorModel.yml
+      $ref: schemas/ErrorModel.yml
     City:
-      $ref: ./schemas/City.yml
+      $ref: schemas/City.yml
     Route:
-      $ref: ./schemas/Route.yml
+      $ref: schemas/Route.yml
 
   requestBodies:
     CreateCity:
-      $ref: ./requestBodies/CreateCity.yml
+      $ref: requestBodies/CreateCity.yml
     CreateRoute:
-      $ref: ./requestBodies/CreateRoute.yml
+      $ref: requestBodies/CreateRoute.yml
 
   responses:
     GetCity:
-      $ref: ./responses/City.yml
+      $ref: responses/City.yml
+    GetAllCities:
+      $ref: responses/GetAllCities.yml
     GetRoute:
-      $ref: ./responses/Route.yml
+      $ref: responses/Route.yml
     GetHealthCheck:
-      $ref: ./responses/HealthCheck.yml
+      $ref: responses/HealthCheck.yml
     ErrorResponse:
-      $ref: ./responses/ErrorModel.yml
+      $ref: responses/ErrorModel.yml
     BadRequestError:
-      $ref: ./responses/BadRequestError.yml
+      $ref: responses/BadRequestError.yml
     NotFoundError:
-      $ref: ./responses/NotFoundError.yml
+      $ref: responses/NotFoundError.yml
+    UnauthorizedError:
+      $ref: responses/UnauthorizedError.yml
 
   examples:
     CityThurles:
-      $ref: ./examples/CityThurles.yml
+      $ref: examples/ResponseCityThurles.yml
+    RouteParisMilan:
+      $ref: examples/ResponseRouteParisMilan.yml
 
   parameters:
     PathCityID:
-      $ref: ./parameters/PathCityID.yml
+      $ref: parameters/PathCityID.yml
     QueryFrom:
-      $ref: ./parameters/QueryFrom.yml
+      $ref: parameters/QueryFrom.yml
+    QueryLimit:
+      $ref: parameters/QueryLimit.yml
+    QuerySkip:
+      $ref: parameters/QuerySkip.yml
     QueryTo:
-      $ref: ./parameters/QueryTo.yml
+      $ref: parameters/QueryTo.yml
 
   securitySchemes:
     api_key:
-      $ref: ./securitySchemes/APIKey.yml
+      $ref: securitySchemes/APIKey.yml

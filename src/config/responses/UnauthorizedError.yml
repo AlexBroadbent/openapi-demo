@@ -1,8 +1,8 @@
-description: An error returned when the requested resource cannot be found
+description: An error returned when the requestor does not have access to the resource
 content:
   application/json:
     schema:
-      title: Not Found Error
+      title: Unauthorized Error
       type: object
       required:
         - status
@@ -11,12 +11,12 @@ content:
         status:
           type: integer
           enum:
-            - 404
+            - 401
         message:
           type: string
     examples:
       NotFound:
-        summary: Not Found Error
+        summary: Unauthorized Error
         value:
-          status: 404
-          message: City Not Found
+          status: 401
+          message: Unauthorized

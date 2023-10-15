@@ -4,4 +4,7 @@ schema:
   type: string
 required: true
 description: City Identifier
-example: paris
+examples: 
+  Paris:
+    summary: The city of Paris in France
+    value: paris

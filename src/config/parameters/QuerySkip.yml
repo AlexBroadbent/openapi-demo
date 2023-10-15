@@ -1,0 +1,11 @@
+in: query
+name: skip
+description: number of items to skip
+schema:
+  type: integer
+  format: int32
+required: false
+examples:
+  Three:
+    summary: Skip first 3 records
+    value: 3

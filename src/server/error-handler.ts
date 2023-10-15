@@ -12,12 +12,11 @@ export const errorHandler = async (
 ): Promise<void> => {
   request.log.error(error)
 
-  if (isErrorModel(error)) {
+  if (isErrorModel(error))
     return reply.status(error.status).send({
       status: error.status,
       message: error.message,
     })
-  }
 
   return reply.status(error.statusCode || 500).send({
     status: error.statusCode || 500,

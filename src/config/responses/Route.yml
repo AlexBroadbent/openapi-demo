@@ -8,3 +8,6 @@ content:
       properties:
         data:
           $ref: ../schemas/Route.yml
+    examples:
+      ParisMilan:
+        $ref: ../examples/ResponseRouteParisMilan.yml

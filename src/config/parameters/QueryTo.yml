@@ -4,4 +4,7 @@ schema:
   type: string
 required: true
 description: City Identifier
-example: milan
+examples:
+  London:
+    summary: City to plan a route to
+    value: milan

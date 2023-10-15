@@ -1,0 +1,13 @@
+summary: The response to a GET /v1/city call with result
+value:
+  next: skip=3
+  data:
+    - id: london
+      name: London
+      country: United Kingdom
+    - id: milan
+      name: Milan
+      country: Italia
+    - id: paris
+      name: Paris
+      country: France

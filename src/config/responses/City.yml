@@ -8,3 +8,6 @@ content:
       properties:
         data:
           $ref: ../schemas/City.yml
+    examples:
+      Thurles:
+        $ref: ../examples/ResponseCityThurles.yml
