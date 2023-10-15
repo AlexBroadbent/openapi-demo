@@ -3,7 +3,97 @@ import type { FastifyInstance, LightMyRequestResponse } from "fastify"
 import { getTestServer } from "./helpers"
 
 describe("city", () => {
+  let server: FastifyInstance
+
+  beforeAll(async () => {
+    server = await getTestServer()
+  })
+
+  afterAll(async () => {
+    await server.close()
+  })
+
   describe("GET /v1/city", () => {
+    describe("when no skip and limit parameter is given", () => {
+      let response: LightMyRequestResponse
+
+      beforeAll(async () => {
+        response = await server.inject({
+          method: "GET",
+          url: "/v1/city",
+        })
+      })
+
+      it("should return 200 OK status code", () => {
+        expect(response.statusCode).toStrictEqual(200)
+      })
+
+      it("should return JSON body with default length of 3 cities", () => {
+        expect(response.json()).toMatchObject({
+          next: "skip=3",
+          data: [
+            expect.objectContaining({ id: "barcelona" }),
+            expect.objectContaining({ id: "geneva" }),
+            expect.objectContaining({ id: "london" }),
+          ],
+        })
+      })
+    })
+
+    describe("when skip parameter is given", () => {
+      let response: LightMyRequestResponse
+
+      beforeAll(async () => {
+        response = await server.inject({
+          method: "GET",
+          url: "/v1/city?skip=3",
+        })
+      })
+
+      it("should return 200 OK status code", () => {
+        expect(response.statusCode).toStrictEqual(200)
+      })
+
+      it("should return JSON body with default length of 3 cities", () => {
+        expect(response.json()).toMatchObject({
+          next: "skip=6",
+          data: [
+            expect.objectContaining({ id: "milan" }),
+            expect.objectContaining({ id: "paris" }),
+            expect.objectContaining({ id: "thurles" }),
+          ],
+        })
+      })
+    })
+
+    describe("when skip parameter is given", () => {
+      let response: LightMyRequestResponse
+
+      beforeAll(async () => {
+        response = await server.inject({
+          method: "GET",
+          url: "/v1/city?skip=2",
+        })
+      })
+
+      it("should return 200 OK status code", () => {
+        expect(response.statusCode).toStrictEqual(200)
+      })
+
+      it("should return JSON body with default length of 3 cities", () => {
+        expect(response.json()).toMatchObject({
+          next: "skip=5",
+          data: [
+            expect.objectContaining({ id: "london" }),
+            expect.objectContaining({ id: "milan" }),
+            expect.objectContaining({ id: "paris" }),
+          ],
+        })
+      })
+    })
+  })
+
+  describe("GET /v1/city/{id}", () => {
     let server: FastifyInstance
 
     beforeAll(async () => {
@@ -79,8 +169,8 @@ describe("city", () => {
           method: "POST",
           url: "/v1/city",
           body: {
-            name: "Hertford",
-            country: "England",
+            name: "Reykjavík",
+            country: "Ísland",
           },
         })
       })
@@ -91,14 +181,14 @@ describe("city", () => {
 
       it("should return JSON body with city", () => {
         expect(response.json().data).toMatchObject({
-          id: "hertford",
-          name: "Hertford",
-          country: "England",
+          id: "reykjavik",
+          name: "Reykjavík",
+          country: "Ísland",
         })
       })
 
       it("should return Location header with new identifier", () => {
-        expect(response.headers["location"]).toEqual("/v1/city/hertford")
+        expect(response.headers["location"]).toEqual("/v1/city/reykjavik")
       })
     })
 

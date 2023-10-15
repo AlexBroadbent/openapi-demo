@@ -7,6 +7,11 @@
 export interface paths {
   "/city": {
     /**
+     * Get Cities
+     * @description Get cities
+     */
+    get: operations["getCities"];
+    /**
      * Create a City
      * @description Create a city
      */
@@ -102,6 +107,19 @@ export interface components {
   };
   responses: {
     GetCity: components["responses"]["City"];
+    /** @description Returns city result */
+    GetAllCities: {
+      content: {
+        "application/json": {
+          /**
+           * @description URI to next page of results
+           * @default null
+           */
+          next: string | null;
+          data: components["schemas"]["City"][];
+        };
+      };
+    };
     GetRoute: components["responses"]["Route"];
     GetHealthCheck: components["responses"]["HealthCheck"];
     ErrorResponse: components["responses"]["ErrorModel"];
@@ -111,8 +129,7 @@ export interface components {
         "application/json": {
           /** @enum {integer} */
           status: 404;
-          /** @enum {string} */
-          message: "Not Found";
+          message: string;
         };
       };
     };
@@ -172,6 +189,10 @@ export interface components {
      * @example london
      */
     QueryFrom: string;
+    /** @description maximum number of records to return */
+    QueryLimit?: number;
+    /** @description number of items to skip */
+    QuerySkip?: number;
     /**
      * @description City Identifier
      * @example milan
@@ -202,6 +223,23 @@ export type external = Record<string, never>;
 
 export interface operations {
 
+  /**
+   * Get Cities
+   * @description Get cities
+   */
+  getCities: {
+    parameters: {
+      query?: {
+        skip?: components["parameters"]["QuerySkip"];
+        limit?: components["parameters"]["QueryLimit"];
+      };
+    };
+    responses: {
+      200: components["responses"]["GetAllCities"];
+      400: components["responses"]["BadRequestError"];
+      default: components["responses"]["ErrorModel"];
+    };
+  };
   /**
    * Create a City
    * @description Create a city

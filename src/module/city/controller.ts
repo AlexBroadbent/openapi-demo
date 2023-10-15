@@ -2,10 +2,9 @@ import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
 import { CityCreate } from "../../types/schemas"
-import { JsonResponse, PathParams, RequestBody } from "../../types/types"
-import { slugify } from "../../util/slugify"
+import { JsonResponse, PathParams, QueryParams, RequestBody } from "../../types/types"
 import { sendWebhook } from "../webhook/service"
-import { createCity, getCity } from "./repository"
+import { createCity, getAllCities, getCity } from "./service"
 
 export const cityController = {
   getCity: async (
@@ -20,6 +19,16 @@ export const cityController = {
     return { data }
   },
 
+  getCities: async (
+    req: FastifyRequest<{
+      Querystring: QueryParams<"getCities">
+    }>,
+  ): Promise<JsonResponse<"getCities">> => {
+    const data = await getAllCities(req.query?.limit, req.query?.skip)
+
+    return { next: data.next || null, data: data.results }
+  },
+
   createCity: async (
     req: FastifyRequest<{
       Body: RequestBody<"createCity">
@@ -28,7 +37,7 @@ export const cityController = {
   ): Promise<JsonResponse<"createCity">> => {
     const body: CityCreate = req.body
 
-    const data = await createCity({ ...body, id: slugify(body.name) })
+    const data = await createCity(body)
 
     await sendWebhook(data)
 

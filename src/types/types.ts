@@ -5,8 +5,8 @@ type AnyObject = Record<string, unknown>
 
 type AllOperations = { [K in keyof operations]: operations[K] }
 
-type HasPathParameters = FilterConditionally<AllOperations, { parameters: { path: AnyObject } }>
-type HasQueryParameters = FilterConditionally<AllOperations, { parameters: { query: AnyObject } }>
+type HasPathParameters = FilterConditionally<AllOperations, { parameters: { path?: AnyObject } }>
+type HasQueryParameters = FilterConditionally<AllOperations, { parameters: { query?: AnyObject } }>
 type HasRequestBody = FilterConditionally<AllOperations, { requestBody: AnyObject }>
 type HasJsonResponse = FilterConditionally<
   AllOperations,
