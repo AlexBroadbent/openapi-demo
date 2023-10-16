@@ -66,13 +66,35 @@ describe("city", () => {
       })
     })
 
-    describe("when skip parameter is given", () => {
+    describe("when limit parameter is given", () => {
       let response: LightMyRequestResponse
 
       beforeAll(async () => {
         response = await server.inject({
           method: "GET",
-          url: "/v1/city?skip=2",
+          url: "/v1/city?limit=2",
+        })
+      })
+
+      it("should return 200 OK status code", () => {
+        expect(response.statusCode).toStrictEqual(200)
+      })
+
+      it("should return JSON body with default length of 3 cities", () => {
+        expect(response.json()).toMatchObject({
+          next: "skip=2",
+          data: [expect.objectContaining({ id: "barcelona" }), expect.objectContaining({ id: "geneva" })],
+        })
+      })
+    })
+
+    describe("when limit and skip parameter is given", () => {
+      let response: LightMyRequestResponse
+
+      beforeAll(async () => {
+        response = await server.inject({
+          method: "GET",
+          url: "/v1/city?limit=2&skip=3",
         })
       })
 
@@ -83,11 +105,7 @@ describe("city", () => {
       it("should return JSON body with default length of 3 cities", () => {
         expect(response.json()).toMatchObject({
           next: "skip=5",
-          data: [
-            expect.objectContaining({ id: "london" }),
-            expect.objectContaining({ id: "milan" }),
-            expect.objectContaining({ id: "paris" }),
-          ],
+          data: [expect.objectContaining({ id: "milan" }), expect.objectContaining({ id: "paris" })],
         })
       })
     })
