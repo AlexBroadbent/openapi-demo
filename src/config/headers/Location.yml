@@ -1,0 +1,3 @@
+description: URI of the newly created resource
+schema:
+  type: string

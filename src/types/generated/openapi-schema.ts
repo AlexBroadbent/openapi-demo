@@ -121,10 +121,21 @@ export interface components {
       };
     };
     GetRoute: components["responses"]["Route"];
+    RouteCreate: components["responses"]["CreateRoute"];
     GetHealthCheck: components["responses"]["HealthCheck"];
     ErrorResponse: components["responses"]["ErrorModel"];
-    /** @description An error returned when the requested resource cannot be found */
+    /** @description An error returned when the request is invalid */
     BadRequestError: {
+      content: {
+        "application/json": {
+          /** @enum {integer} */
+          status: 400;
+          message: string;
+        };
+      };
+    };
+    /** @description An error returned when the requested resource cannot be found */
+    NotFoundError: {
       content: {
         "application/json": {
           /** @enum {integer} */
@@ -133,12 +144,12 @@ export interface components {
         };
       };
     };
-    /** @description An error returned when the request is invalid */
-    NotFoundError: {
+    /** @description An error returned when the requestor does not have access to the resource */
+    UnauthorizedError: {
       content: {
         "application/json": {
           /** @enum {integer} */
-          status: 400;
+          status: 401;
           message: string;
         };
       };
@@ -165,6 +176,19 @@ export interface components {
         };
       };
     };
+    /** @description Returns route result */
+    CreateRoute: {
+      headers: {
+        Location: components["headers"]["Location"];
+        "X-City-From": components["headers"]["XCityFrom"];
+        "X-City-To": components["headers"]["XCityTo"];
+      };
+      content: {
+        "application/json": {
+          data: components["schemas"]["Route"];
+        };
+      };
+    };
     /** @description Returns health check result */
     HealthCheck: {
       content: {
@@ -179,24 +203,15 @@ export interface components {
     };
   };
   parameters: {
-    /**
-     * @description City Identifier
-     * @example paris
-     */
+    /** @description City Identifier */
     PathCityID: string;
-    /**
-     * @description City Identifier
-     * @example london
-     */
+    /** @description City Identifier */
     QueryFrom: string;
     /** @description maximum number of records to return */
     QueryLimit?: number;
     /** @description number of items to skip */
     QuerySkip?: number;
-    /**
-     * @description City Identifier
-     * @example milan
-     */
+    /** @description City Identifier */
     QueryTo: string;
   };
   requestBodies: {
@@ -213,7 +228,14 @@ export interface components {
       };
     };
   };
-  headers: never;
+  headers: {
+    /** @description URI of the newly created resource */
+    Location: string;
+    /** @description The `from` parameter of a route resource */
+    XCityFrom: string;
+    /** @description The `to` parameter of a route resource */
+    XCityTo: string;
+  };
   pathItems: never;
 }
 
@@ -237,6 +259,7 @@ export interface operations {
     responses: {
       200: components["responses"]["GetAllCities"];
       400: components["responses"]["BadRequestError"];
+      401: components["responses"]["UnauthorizedError"];
       default: components["responses"]["ErrorModel"];
     };
   };
@@ -249,6 +272,7 @@ export interface operations {
     responses: {
       200: components["responses"]["City"];
       400: components["responses"]["BadRequestError"];
+      401: components["responses"]["UnauthorizedError"];
       default: components["responses"]["ErrorModel"];
     };
   };
@@ -264,6 +288,7 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["City"];
+      401: components["responses"]["UnauthorizedError"];
       404: components["responses"]["NotFoundError"];
       default: components["responses"]["ErrorModel"];
     };
@@ -281,6 +306,7 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["Route"];
+      401: components["responses"]["UnauthorizedError"];
       404: components["responses"]["NotFoundError"];
       default: components["responses"]["ErrorModel"];
     };
@@ -292,8 +318,9 @@ export interface operations {
   createRoute: {
     requestBody: components["requestBodies"]["CreateRoute"];
     responses: {
-      200: components["responses"]["Route"];
+      200: components["responses"]["CreateRoute"];
       400: components["responses"]["BadRequestError"];
+      401: components["responses"]["UnauthorizedError"];
       default: components["responses"]["ErrorModel"];
     };
   };
@@ -304,8 +331,7 @@ export interface operations {
   getHealthCheck: {
     responses: {
       200: components["responses"]["HealthCheck"];
-      /** Unauthorized */
-      401: components["responses"]["ErrorModel"];
+      401: components["responses"]["UnauthorizedError"];
       default: components["responses"]["ErrorModel"];
     };
   };

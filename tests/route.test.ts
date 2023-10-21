@@ -60,7 +60,7 @@ describe("route", () => {
     })
   })
 
-  describe("POST /v1/routes", () => {
+  describe("POST /v1/route", () => {
     let server: FastifyInstance
 
     beforeAll(async () => {
@@ -99,8 +99,10 @@ describe("route", () => {
         })
       })
 
-      it("should return Location header with new identifier", () => {
+      it("should return expected headers", () => {
         expect(response.headers["location"]).toEqual("/v1/route?from=manchester&to=london")
+        expect(response.headers["x-city-from"]).toEqual("manchester")
+        expect(response.headers["x-city-to"]).toEqual("london")
       })
     })
 

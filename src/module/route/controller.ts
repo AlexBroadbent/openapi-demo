@@ -33,7 +33,10 @@ export const routeController = {
 
     await sendWebhook(route)
 
-    rep.header("Location", `/v1/route?from=${data.from}&to=${data.to}`)
+    rep
+      .header("Location", `/v1/route?from=${data.from}&to=${data.to}`)
+      .header("X-City-From", data.from)
+      .header("X-City-To", data.to)
 
     return { data }
   },

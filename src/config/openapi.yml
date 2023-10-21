@@ -148,7 +148,7 @@ paths:
         $ref: "#/components/requestBodies/CreateRoute"
       responses:
         "200":
-          $ref: "#/components/responses/GetRoute"
+          $ref: "#/components/responses/RouteCreate"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -203,6 +203,8 @@ components:
       $ref: responses/GetAllCities.yml
     GetRoute:
       $ref: responses/Route.yml
+    RouteCreate:
+      $ref: responses/CreateRoute.yml
     GetHealthCheck:
       $ref: responses/HealthCheck.yml
     ErrorResponse:

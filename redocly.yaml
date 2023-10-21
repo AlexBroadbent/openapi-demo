@@ -3,6 +3,7 @@ extends:
 
 rules:
   info-license-url: off
+  no-server-example.com: off
   no-invalid-media-type-examples:
     severity: warn
     allowAdditionalProperties: true
@@ -13,4 +14,4 @@ apis:
     decorators:
       remove-x-internal: on
   internal:
-    root: ./src/config/openapi-internal.bundle.json
+    root: ./src/config/openapi.yml
