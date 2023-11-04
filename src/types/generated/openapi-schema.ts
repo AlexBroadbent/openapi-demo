@@ -64,10 +64,6 @@ export interface webhooks {
 
 export interface components {
   schemas: {
-    /** Health Check Result */
-    HealthCheckResult: {
-      ok: boolean;
-    };
     /** City */
     City: {
       /** @description City Identifier */
@@ -91,6 +87,10 @@ export interface components {
        * @description The distance in miles between the two cities
        */
       miles: number;
+    };
+    /** Health Check */
+    HealthCheck: {
+      ok: boolean;
     };
     /** Error Model */
     ErrorModel: {
@@ -152,7 +152,7 @@ export interface components {
     HealthCheckGet: {
       content: {
         "application/json": {
-          data: components["schemas"]["HealthCheckResult"];
+          data: components["schemas"]["HealthCheck"];
         };
       };
     };

@@ -181,12 +181,12 @@ webhooks:
 
 components:
   schemas:
-    HealthCheckResult:
-      $ref: schemas/HealthCheckResult.yml
     City:
       $ref: schemas/City.yml
     Route:
       $ref: schemas/Route.yml
+    HealthCheck:
+      $ref: schemas/HealthCheck.yml
     ErrorModel:
       $ref: schemas/ErrorModel.yml
 
