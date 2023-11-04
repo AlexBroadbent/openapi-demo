@@ -3,6 +3,7 @@ post:
   description: An event that is posted when a new city is created
   tags:
     - City
+  x-internal: true
   security: []
   operationId: cityCreatedEvent
   requestBody:

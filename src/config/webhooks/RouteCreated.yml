@@ -3,6 +3,7 @@ post:
   description: An event that is posted when a new route is created
   tags:
     - Route
+  x-internal: true
   security: []
   operationId: routeCreatedEvent
   requestBody:
