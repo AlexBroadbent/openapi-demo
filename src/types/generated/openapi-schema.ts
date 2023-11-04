@@ -68,11 +68,6 @@ export interface components {
     HealthCheckResult: {
       ok: boolean;
     };
-    /** Error Model */
-    ErrorModel: {
-      status: number;
-      message: string;
-    };
     /** City */
     City: {
       /** @description City Identifier */
@@ -97,6 +92,11 @@ export interface components {
        */
       miles: number;
     };
+    /** Error Model */
+    ErrorModel: {
+      status: number;
+      message: string;
+    };
     /** City */
     CityCreate: {
       /** @description Name of the city */
@@ -106,9 +106,16 @@ export interface components {
     };
   };
   responses: {
-    GetCity: components["responses"]["City"];
     /** @description Returns city result */
-    GetAllCities: {
+    CityGet: {
+      content: {
+        "application/json": {
+          data: components["schemas"]["City"];
+        };
+      };
+    };
+    /** @description Returns cities result */
+    CityAllGet: {
       content: {
         "application/json": {
           /**
@@ -120,56 +127,8 @@ export interface components {
         };
       };
     };
-    GetRoute: components["responses"]["Route"];
-    RouteCreate: components["responses"]["CreateRoute"];
-    GetHealthCheck: components["responses"]["HealthCheck"];
-    ErrorResponse: components["responses"]["ErrorModel"];
-    /** @description An error returned when the request is invalid */
-    BadRequestError: {
-      content: {
-        "application/json": {
-          /** @enum {integer} */
-          status: 400;
-          message: string;
-        };
-      };
-    };
-    /** @description An error returned when the requested resource cannot be found */
-    NotFoundError: {
-      content: {
-        "application/json": {
-          /** @enum {integer} */
-          status: 404;
-          message: string;
-        };
-      };
-    };
-    /** @description An error returned when the requestor does not have access to the resource */
-    UnauthorizedError: {
-      content: {
-        "application/json": {
-          /** @enum {integer} */
-          status: 401;
-          message: string;
-        };
-      };
-    };
-    /** @description Error when there is a problem while fulfilling the request */
-    ErrorModel: {
-      content: {
-        "application/json": components["schemas"]["ErrorModel"];
-      };
-    };
-    /** @description Returns city result */
-    City: {
-      content: {
-        "application/json": {
-          data: components["schemas"]["City"];
-        };
-      };
-    };
     /** @description Returns route result */
-    Route: {
+    RouteGet: {
       content: {
         "application/json": {
           data: components["schemas"]["Route"];
@@ -177,7 +136,7 @@ export interface components {
       };
     };
     /** @description Returns route result */
-    CreateRoute: {
+    RouteCreated: {
       headers: {
         Location: components["headers"]["Location"];
         "X-City-From": components["headers"]["XCityFrom"];
@@ -190,11 +149,48 @@ export interface components {
       };
     };
     /** @description Returns health check result */
-    HealthCheck: {
+    HealthCheckGet: {
       content: {
         "application/json": {
           data: components["schemas"]["HealthCheckResult"];
         };
+      };
+    };
+    ErrorResponse: components["responses"]["ErrorModel"];
+    /** @description An error returned when the request is invalid */
+    ErrorBadRequest: {
+      content: {
+        "application/json": {
+          /** @enum {integer} */
+          status: 400;
+          message: string;
+        };
+      };
+    };
+    /** @description An error returned when the requested resource cannot be found */
+    ErrorNotFound: {
+      content: {
+        "application/json": {
+          /** @enum {integer} */
+          status: 404;
+          message: string;
+        };
+      };
+    };
+    /** @description An error returned when the requestor does not have access to the resource */
+    ErrorUnauthorized: {
+      content: {
+        "application/json": {
+          /** @enum {integer} */
+          status: 401;
+          message: string;
+        };
+      };
+    };
+    /** @description Error when there is a problem while fulfilling the request */
+    ErrorModel: {
+      content: {
+        "application/json": components["schemas"]["ErrorModel"];
       };
     };
     /** @description Return a 200 status to indicate that the data was received successfully */
@@ -257,9 +253,9 @@ export interface operations {
       };
     };
     responses: {
-      200: components["responses"]["GetAllCities"];
-      400: components["responses"]["BadRequestError"];
-      401: components["responses"]["UnauthorizedError"];
+      200: components["responses"]["CityAllGet"];
+      400: components["responses"]["ErrorBadRequest"];
+      401: components["responses"]["ErrorUnauthorized"];
       default: components["responses"]["ErrorModel"];
     };
   };
@@ -270,9 +266,9 @@ export interface operations {
   createCity: {
     requestBody: components["requestBodies"]["CreateCity"];
     responses: {
-      200: components["responses"]["City"];
-      400: components["responses"]["BadRequestError"];
-      401: components["responses"]["UnauthorizedError"];
+      200: components["responses"]["CityGet"];
+      400: components["responses"]["ErrorBadRequest"];
+      401: components["responses"]["ErrorUnauthorized"];
       default: components["responses"]["ErrorModel"];
     };
   };
@@ -287,9 +283,9 @@ export interface operations {
       };
     };
     responses: {
-      200: components["responses"]["City"];
-      401: components["responses"]["UnauthorizedError"];
-      404: components["responses"]["NotFoundError"];
+      200: components["responses"]["CityGet"];
+      401: components["responses"]["ErrorUnauthorized"];
+      404: components["responses"]["ErrorNotFound"];
       default: components["responses"]["ErrorModel"];
     };
   };
@@ -305,9 +301,9 @@ export interface operations {
       };
     };
     responses: {
-      200: components["responses"]["Route"];
-      401: components["responses"]["UnauthorizedError"];
-      404: components["responses"]["NotFoundError"];
+      200: components["responses"]["RouteGet"];
+      401: components["responses"]["ErrorUnauthorized"];
+      404: components["responses"]["ErrorNotFound"];
       default: components["responses"]["ErrorModel"];
     };
   };
@@ -318,9 +314,9 @@ export interface operations {
   createRoute: {
     requestBody: components["requestBodies"]["CreateRoute"];
     responses: {
-      200: components["responses"]["CreateRoute"];
-      400: components["responses"]["BadRequestError"];
-      401: components["responses"]["UnauthorizedError"];
+      200: components["responses"]["RouteCreated"];
+      400: components["responses"]["ErrorBadRequest"];
+      401: components["responses"]["ErrorUnauthorized"];
       default: components["responses"]["ErrorModel"];
     };
   };
@@ -330,8 +326,8 @@ export interface operations {
    */
   getHealthCheck: {
     responses: {
-      200: components["responses"]["HealthCheck"];
-      401: components["responses"]["UnauthorizedError"];
+      200: components["responses"]["HealthCheckGet"];
+      401: components["responses"]["ErrorUnauthorized"];
       default: components["responses"]["ErrorModel"];
     };
   };

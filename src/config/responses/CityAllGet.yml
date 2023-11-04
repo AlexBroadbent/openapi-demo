@@ -1,4 +1,4 @@
-description: Returns city result
+description: Returns cities result
 content:
   application/json:
     schema:

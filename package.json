@@ -1,12 +1,12 @@
 {
   "name": "openapi-test",
   "version": "0.1.0",
-  "description": "Demo repo for OpenAPI talk",
+  "description": "OpenAPI Demo",
   "author": "Alexander Broadbent",
   "homepage": "https://abroadbent.com",
   "license": "Apache-2.0",
   "scripts": {
-    "verify": "pnpm lint && pnpm build && pnpm openapi && pnpm docs:validate",
+    "verify": "pnpm openapi && pnpm lint && pnpm build && pnpm docs:validate",
     "lint": "eslint . --ext .ts",
     "lint:fix": "pnpm run lint --fix",
     "prettier": "prettier --write '**/*.ts'",

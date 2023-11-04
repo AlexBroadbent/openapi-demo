@@ -63,11 +63,11 @@ paths:
         - $ref: "#/components/parameters/QueryLimit"
       responses:
         "200":
-          $ref: "#/components/responses/GetAllCities"
+          $ref: "#/components/responses/CityAllGet"
         "400":
-          $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/ErrorBadRequest"
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: "#/components/responses/ErrorUnauthorized"
         default:
           $ref: "#/components/responses/ErrorResponse"
     post:
@@ -84,11 +84,11 @@ paths:
         $ref: "#/components/requestBodies/CreateCity"
       responses:
         "200":
-          $ref: "#/components/responses/GetCity"
+          $ref: "#/components/responses/CityGet"
         "400":
-          $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/ErrorBadRequest"
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: "#/components/responses/ErrorUnauthorized"
         default:
           $ref: "#/components/responses/ErrorResponse"
   "/city/{id}":
@@ -105,11 +105,11 @@ paths:
         - $ref: "#/components/parameters/PathCityID"
       responses:
         "200":
-          $ref: "#/components/responses/GetCity"
+          $ref: "#/components/responses/CityGet"
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: "#/components/responses/ErrorUnauthorized"
         "404":
-          $ref: "#/components/responses/NotFoundError"
+          $ref: "#/components/responses/ErrorNotFound"
         default:
           $ref: "#/components/responses/ErrorResponse"
   "/route":
@@ -127,11 +127,11 @@ paths:
         - $ref: "#/components/parameters/QueryTo"
       responses:
         "200":
-          $ref: "#/components/responses/GetRoute"
+          $ref: "#/components/responses/RouteGet"
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: "#/components/responses/ErrorUnauthorized"
         "404":
-          $ref: "#/components/responses/NotFoundError"
+          $ref: "#/components/responses/ErrorNotFound"
         default:
           $ref: "#/components/responses/ErrorResponse"
     post:
@@ -148,11 +148,11 @@ paths:
         $ref: "#/components/requestBodies/CreateRoute"
       responses:
         "200":
-          $ref: "#/components/responses/RouteCreate"
+          $ref: "#/components/responses/RouteCreated"
         "400":
-          $ref: "#/components/responses/BadRequestError"
+          $ref: "#/components/responses/ErrorBadRequest"
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: "#/components/responses/ErrorUnauthorized"
         default:
           $ref: "#/components/responses/ErrorResponse"
   "/_health":
@@ -167,9 +167,9 @@ paths:
             - health:get
       responses:
         "200":
-          $ref: "#/components/responses/GetHealthCheck"
+          $ref: "#/components/responses/HealthCheckGet"
         "401":
-          $ref: "#/components/responses/UnauthorizedError"
+          $ref: "#/components/responses/ErrorUnauthorized"
         default:
           $ref: "#/components/responses/ErrorResponse"
 
@@ -183,12 +183,12 @@ components:
   schemas:
     HealthCheckResult:
       $ref: schemas/HealthCheckResult.yml
-    ErrorModel:
-      $ref: schemas/ErrorModel.yml
     City:
       $ref: schemas/City.yml
     Route:
       $ref: schemas/Route.yml
+    ErrorModel:
+      $ref: schemas/ErrorModel.yml
 
   requestBodies:
     CreateCity:
@@ -197,24 +197,24 @@ components:
       $ref: requestBodies/CreateRoute.yml
 
   responses:
-    GetCity:
-      $ref: responses/City.yml
-    GetAllCities:
-      $ref: responses/GetAllCities.yml
-    GetRoute:
-      $ref: responses/Route.yml
-    RouteCreate:
-      $ref: responses/CreateRoute.yml
-    GetHealthCheck:
-      $ref: responses/HealthCheck.yml
+    CityGet:
+      $ref: responses/CityGet.yml
+    CityAllGet:
+      $ref: responses/CityAllGet.yml
+    RouteGet:
+      $ref: responses/RouteGet.yml
+    RouteCreated:
+      $ref: responses/RouteCreated.yml
+    HealthCheckGet:
+      $ref: responses/HealthCheckGet.yml
     ErrorResponse:
       $ref: responses/ErrorModel.yml
-    BadRequestError:
-      $ref: responses/BadRequestError.yml
-    NotFoundError:
-      $ref: responses/NotFoundError.yml
-    UnauthorizedError:
-      $ref: responses/UnauthorizedError.yml
+    ErrorBadRequest:
+      $ref: responses/ErrorBadRequest.yml
+    ErrorNotFound:
+      $ref: responses/ErrorNotFound.yml
+    ErrorUnauthorized:
+      $ref: responses/ErrorUnauthorized.yml
 
   examples:
     CityThurles:
