@@ -1,9 +1,8 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
-import { QueryLimit, QuerySkip } from "../../types/parameters"
 import { CityCreate } from "../../types/schemas"
-import { JsonResponse, PathParams, QueryParams, RequestBody } from "../../types/types"
+import { JsonResponse, PathParams, RequestBody } from "../../types/types"
 import { sendWebhook } from "../webhook/service"
 import { createCity, getAllCities, getCity } from "./service"
 
@@ -20,15 +19,10 @@ export const cityController = {
     return { data }
   },
 
-  getCities: async (
-    req: FastifyRequest<{
-      Querystring: QueryParams<"getCities">
-    }>,
-  ): Promise<JsonResponse<"getCities">> => {
-    const limit: QueryLimit = req.query?.limit
-    const skip: QuerySkip = req.query?.skip
+  getCities: async (): Promise<JsonResponse<"getCities">> => {
+    const data = await getAllCities()
 
-    return getAllCities(limit, skip)
+    return { data }
   },
 
   createCity: async (

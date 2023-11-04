@@ -1,8 +1,5 @@
-import { QueryLimit, QuerySkip } from "../../types/parameters"
-import { GetAllCities } from "../../types/responses"
 import type { City } from "../../types/schemas"
 
-type GetCitiesProps = { limit: QueryLimit; skip: QuerySkip }
 const store: City[] = [
   { id: "barcelona", name: "Barcelona", country: "España" },
   { id: "geneva", name: "Geneva", country: "Schwiiz" },
@@ -22,11 +19,6 @@ export const createCity = async (city: City): Promise<City> => {
   return city
 }
 
-export const getCities = async (props: GetCitiesProps): Promise<GetAllCities> => {
-  const { limit = 3, skip = 0 } = props
-
-  const cities = store.sort((a, b) => (a.id > b.id ? 1 : 0))
-  const data = cities.slice(skip, skip + limit)
-
-  return { data, next: data.length ? `skip=${skip + data.length}` : null }
+export const getCities = async (): Promise<City[]> => {
+  return store.sort((a, b) => (a.id > b.id ? 1 : 0))
 }

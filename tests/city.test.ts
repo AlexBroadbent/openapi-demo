@@ -14,100 +14,31 @@ describe("city", () => {
   })
 
   describe("GET /v1/city", () => {
-    describe("when no skip and limit parameter is given", () => {
-      let response: LightMyRequestResponse
+    let response: LightMyRequestResponse
 
-      beforeAll(async () => {
-        response = await server.inject({
-          method: "GET",
-          url: "/v1/city",
-        })
-      })
-
-      it("should return 200 OK status code", () => {
-        expect(response.statusCode).toStrictEqual(200)
-      })
-
-      it("should return JSON body with default length of 3 cities", () => {
-        expect(response.json()).toMatchObject({
-          next: "skip=3",
-          data: [
-            expect.objectContaining({ id: "barcelona" }),
-            expect.objectContaining({ id: "geneva" }),
-            expect.objectContaining({ id: "london" }),
-          ],
-        })
+    beforeAll(async () => {
+      response = await server.inject({
+        method: "GET",
+        url: "/v1/city",
       })
     })
 
-    describe("when skip parameter is given", () => {
-      let response: LightMyRequestResponse
-
-      beforeAll(async () => {
-        response = await server.inject({
-          method: "GET",
-          url: "/v1/city?skip=3",
-        })
-      })
-
-      it("should return 200 OK status code", () => {
-        expect(response.statusCode).toStrictEqual(200)
-      })
-
-      it("should return JSON body with default length of 3 cities", () => {
-        expect(response.json()).toMatchObject({
-          next: "skip=6",
-          data: [
-            expect.objectContaining({ id: "milan" }),
-            expect.objectContaining({ id: "paris" }),
-            expect.objectContaining({ id: "thurles" }),
-          ],
-        })
-      })
+    it("should return 200 OK status code", () => {
+      expect(response.statusCode).toStrictEqual(200)
     })
 
-    describe("when limit parameter is given", () => {
-      let response: LightMyRequestResponse
-
-      beforeAll(async () => {
-        response = await server.inject({
-          method: "GET",
-          url: "/v1/city?limit=2",
-        })
-      })
-
-      it("should return 200 OK status code", () => {
-        expect(response.statusCode).toStrictEqual(200)
-      })
-
-      it("should return JSON body with default length of 3 cities", () => {
-        expect(response.json()).toMatchObject({
-          next: "skip=2",
-          data: [expect.objectContaining({ id: "barcelona" }), expect.objectContaining({ id: "geneva" })],
-        })
-      })
-    })
-
-    describe("when limit and skip parameter is given", () => {
-      let response: LightMyRequestResponse
-
-      beforeAll(async () => {
-        response = await server.inject({
-          method: "GET",
-          url: "/v1/city?limit=2&skip=3",
-        })
-      })
-
-      it("should return 200 OK status code", () => {
-        expect(response.statusCode).toStrictEqual(200)
-      })
-
-      it("should return JSON body with default length of 3 cities", () => {
-        expect(response.json()).toMatchObject({
-          next: "skip=5",
-          data: [expect.objectContaining({ id: "milan" }), expect.objectContaining({ id: "paris" })],
-        })
-      })
+    it("should return JSON body with 6 cities from repository", () => {
+      expect(response.json().data).toHaveLength(6)
+      expect(response.json().data).toMatchObject(
+        expect.arrayContaining([
+          expect.objectContaining({ id: "barcelona" }),
+          expect.objectContaining({ id: "geneva" }),
+          expect.objectContaining({ id: "london" }),
+          expect.objectContaining({ id: "milan" }),
+          expect.objectContaining({ id: "paris" }),
+          expect.objectContaining({ id: "thurles" }),
+        ]),
+      )
     })
   })
 

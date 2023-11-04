@@ -4,15 +4,8 @@ content:
     schema:
       type: object
       required:
-        - next
         - data
       properties:
-        next:
-          type:
-            - string
-            - "null"
-          description: URI to next page of results
-          default: null
         data:
           type: array
           items:

@@ -1,5 +1,3 @@
-import { QueryLimit, QuerySkip } from "../../types/parameters"
-import { GetAllCities } from "../../types/responses"
 import { City, CityCreate } from "../../types/schemas"
 import { slugify } from "../../util/slugify"
 import { sendWebhook } from "../webhook/service"
@@ -14,5 +12,4 @@ export const createCity = async (city: CityCreate): Promise<City> => {
   return result
 }
 
-export const getAllCities = async (limit: QueryLimit, skip: QuerySkip): Promise<GetAllCities> =>
-  repo.getCities({ limit, skip })
+export const getAllCities = async (): Promise<City[]> => repo.getCities()

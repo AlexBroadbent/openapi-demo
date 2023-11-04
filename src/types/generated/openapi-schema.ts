@@ -118,11 +118,6 @@ export interface components {
     CityAllGet: {
       content: {
         "application/json": {
-          /**
-           * @description URI to next page of results
-           * @default null
-           */
-          next: string | null;
           data: components["schemas"]["City"][];
         };
       };
@@ -203,10 +198,6 @@ export interface components {
     PathCityID: string;
     /** @description City Identifier */
     QueryFrom: string;
-    /** @description maximum number of records to return */
-    QueryLimit?: number;
-    /** @description number of items to skip */
-    QuerySkip?: number;
     /** @description City Identifier */
     QueryTo: string;
   };
@@ -246,12 +237,6 @@ export interface operations {
    * @description Get cities
    */
   getCities: {
-    parameters: {
-      query?: {
-        skip?: components["parameters"]["QuerySkip"];
-        limit?: components["parameters"]["QueryLimit"];
-      };
-    };
     responses: {
       200: components["responses"]["CityAllGet"];
       400: components["responses"]["ErrorBadRequest"];

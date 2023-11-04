@@ -58,9 +58,6 @@ paths:
       security:
         - api_key:
             - city:get
-      parameters:
-        - $ref: "#/components/parameters/QuerySkip"
-        - $ref: "#/components/parameters/QueryLimit"
       responses:
         "200":
           $ref: "#/components/responses/CityAllGet"
@@ -227,10 +224,6 @@ components:
       $ref: parameters/PathCityID.yml
     QueryFrom:
       $ref: parameters/QueryFrom.yml
-    QueryLimit:
-      $ref: parameters/QueryLimit.yml
-    QuerySkip:
-      $ref: parameters/QuerySkip.yml
     QueryTo:
       $ref: parameters/QueryTo.yml
 
