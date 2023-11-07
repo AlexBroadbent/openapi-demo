@@ -1,6 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
+import { QueryFrom, QueryTo } from "../../types/paramters"
 import { Route } from "../../types/schemas"
 import { JsonResponse, QueryParams, RequestBody } from "../../types/types"
 import { sendWebhook } from "../webhook/service"
@@ -12,7 +13,7 @@ export const routeController = {
       Querystring: QueryParams<"getRoute">
     }>,
   ): Promise<JsonResponse<"getRoute">> => {
-    const { from, to } = req.query
+    const { from, to }: { from: QueryFrom; to: QueryTo } = req.query
 
     const data = await getRoute(from, to)
 

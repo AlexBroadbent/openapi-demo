@@ -1,5 +1,5 @@
 in: query
-name: from
+name: to
 schema:
   type: string
 required: true

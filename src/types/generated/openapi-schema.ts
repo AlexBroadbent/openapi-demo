@@ -281,8 +281,8 @@ export interface operations {
   getRoute: {
     parameters: {
       query: {
-        to: components["parameters"]["QueryFrom"];
-        from: components["parameters"]["QueryTo"];
+        from: components["parameters"]["QueryFrom"];
+        to: components["parameters"]["QueryTo"];
       };
     };
     responses: {

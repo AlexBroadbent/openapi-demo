@@ -1,4 +1,5 @@
-import { City, Route } from "../../types/schemas"
+import { QueryFrom, QueryTo } from "../../types/paramters"
+import { Route } from "../../types/schemas"
 
 const store: Route[] = [
   { from: "london", to: "thurles", miles: 459 },
@@ -23,7 +24,7 @@ const store: Route[] = [
   { from: "geneva", to: "milan", miles: 198 },
 ]
 
-export const getRoute = async (from: City["id"], to: City["id"]): Promise<Route | null> => {
+export const getRoute = async (from: QueryFrom, to: QueryTo): Promise<Route | null> => {
   const result = store.find((route) => route.from === from && route.to === to)
   return result ?? null
 }
