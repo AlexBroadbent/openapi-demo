@@ -26,9 +26,7 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm i
-      - name: Run openapi generation
-        run: pnpm openapi
-      - name: Run build
-        run: pnpm build
+      - name: Bundle OpenAPI, build and validation
+        run: pnpm verify
       - name: Run unit tests
         run: pnpm test
