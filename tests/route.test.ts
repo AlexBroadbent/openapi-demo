@@ -47,7 +47,7 @@ describe("route", () => {
         })
       })
 
-      it("should return 200 OK status code", () => {
+      it("should return 404 Not Found status code", () => {
         expect(response.statusCode).toStrictEqual(404)
       })
 

@@ -1,25 +1,29 @@
 import { ErrorModel } from "../types/schemas"
 
 export class BadRequestError extends Error implements ErrorModel {
-  constructor(message: string, readonly status: number = 400) {
+  readonly status = 400
+  constructor(message: string) {
     super(message)
   }
 }
 
 export class NotFoundError extends Error implements ErrorModel {
-  constructor(message: string, readonly status: number = 404) {
+  readonly status = 404
+  constructor(message: string) {
     super(message)
   }
 }
 
 export class UnauthorizedError extends Error implements ErrorModel {
-  constructor(message: string, readonly status: number = 401) {
+  readonly status = 401
+  constructor(message: string) {
     super(message)
   }
 }
 
 export class InternalServerError extends Error implements ErrorModel {
-  constructor(message: string, readonly status: number = 500) {
+  readonly status = 500
+  constructor(message: string) {
     super(message)
   }
 }
