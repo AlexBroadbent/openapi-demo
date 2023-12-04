@@ -1,4 +1,4 @@
-import { PathCityID } from "../../types/paramters"
+import { PathCityID } from "../../types/parameters"
 import { City, CityCreate } from "../../types/schemas"
 import { slugify } from "../../util/slugify"
 import { sendWebhook } from "../webhook/service"

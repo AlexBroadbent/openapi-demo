@@ -1,4 +1,4 @@
-import { QueryFrom, QueryTo } from "../../types/paramters"
+import { QueryFrom, QueryTo } from "../../types/parameters"
 import { Route } from "../../types/schemas"
 
 const store: Route[] = [

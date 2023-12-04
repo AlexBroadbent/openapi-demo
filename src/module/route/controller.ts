@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
-import { QueryFrom, QueryTo } from "../../types/paramters"
+import { QueryFrom, QueryTo } from "../../types/parameters"
 import { Route } from "../../types/schemas"
 import { JsonResponse, QueryParams, RequestBody } from "../../types/types"
 import { sendWebhook } from "../webhook/service"

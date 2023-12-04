@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
-import { PathCityID } from "../../types/paramters"
+import { PathCityID } from "../../types/parameters"
 import { CityCreate } from "../../types/schemas"
 import { JsonResponse, PathParams, RequestBody } from "../../types/types"
 import { sendWebhook } from "../webhook/service"
