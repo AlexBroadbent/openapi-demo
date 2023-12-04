@@ -17,8 +17,7 @@
     "max-len": ["error", { "code": 120, "tabWidth": 2 }],
     "no-extra-semi": "error",
     "no-unexpected-multiline": "error",
-    "semi": ["off", "never"],
-    "operator-linebreak": ["error", "before"]
+    "semi": ["off", "never"]
   },
   "overrides": [
     {

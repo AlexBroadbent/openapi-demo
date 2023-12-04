@@ -18,8 +18,6 @@
     "openapi:generate-internal": "redocly bundle internal -o ./src/config/openapi-internal.bundle.json",
     "openapi:generate-types": "openapi-typescript ./src/config/openapi-internal.bundle.json --output ./src/types/generated/openapi-schema.ts",
     "openapi:validate": "redocly lint --lint-config error",
-    "docs:preview-public": "redocly preview-docs -p 3000 src/config/openapi.bundle.json",
-    "docs:preview-internal": "redocly preview-docs -p 3000 src/config/openapi-internal.bundle.json",
     "docs:preview": "concurrently \"http-server docs/public\" \"open http://127.0.0.1:8080\""
   },
   "repository": {
@@ -56,6 +54,7 @@
     "typescript": "5.2.2"
   },
   "dependencies": {
+    "@fastify/cors": "^8.4.1",
     "dotenv-flow": "3.3.0",
     "fastify": "4.23.2",
     "fastify-openapi-glue": "2.6.7",
