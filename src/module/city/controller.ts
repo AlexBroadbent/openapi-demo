@@ -4,7 +4,6 @@ import { NotFoundError } from "../../server/errors"
 import { PathCityID } from "../../types/parameters"
 import { CityCreate } from "../../types/schemas"
 import { JsonResponse, PathParams, RequestBody } from "../../types/types"
-import { sendWebhook } from "../webhook/service"
 import { createCity, getAllCities, getCity } from "./service"
 
 export const cityController = {
@@ -37,8 +36,6 @@ export const cityController = {
     const body: CityCreate = req.body
 
     const data = await createCity(body)
-
-    await sendWebhook(data)
 
     rep.header("Location", `/v1/city/${data.id}`)
 

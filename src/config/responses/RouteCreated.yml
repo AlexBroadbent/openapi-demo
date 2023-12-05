@@ -2,10 +2,6 @@ description: Returns route result
 headers:
   Location:
     $ref: ../headers/Location.yml
-  X-City-From:
-    $ref: ../headers/XCityFrom.yml
-  X-City-To:
-    $ref: ../headers/XCityTo.yml
 content:
   application/json:
     schema:
@@ -18,14 +14,3 @@ content:
     examples:
       ParisMilan:
         $ref: ../examples/ResponseRouteParisMilan.yml
-links:
-  GetCityTo:
-    operationId: getCity
-    parameters:
-      id: '$response.header.X-City-To'
-    description: Fetch the City resource from the created `to` parameter
-  GetCityFrom:
-    operationId: getCity
-    parameters:
-      id: '$response.header.X-City-From'
-    description: Fetch the City resource from the created `from` parameter

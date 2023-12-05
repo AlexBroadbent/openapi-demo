@@ -17,6 +17,7 @@ properties:
     type: integer
     format: int32
     description: The distance in miles between the two cities
+    minimum: 0
 examples:
   - from: london
     to: milan

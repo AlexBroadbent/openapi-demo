@@ -4,7 +4,6 @@ import { NotFoundError } from "../../server/errors"
 import { QueryFrom, QueryTo } from "../../types/parameters"
 import { Route } from "../../types/schemas"
 import { JsonResponse, QueryParams, RequestBody } from "../../types/types"
-import { sendWebhook } from "../webhook/service"
 import { createRoute, getRoute } from "./repository"
 
 export const routeController = {
@@ -32,12 +31,7 @@ export const routeController = {
 
     const data = await createRoute(route)
 
-    await sendWebhook(route)
-
-    rep
-      .header("Location", `/v1/route?from=${data.from}&to=${data.to}`)
-      .header("X-City-From", data.from)
-      .header("X-City-To", data.to)
+    rep.header("Location", `/v1/route?from=${data.from}&to=${data.to}`)
 
     return { data }
   },
