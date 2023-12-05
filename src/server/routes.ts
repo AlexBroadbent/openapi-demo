@@ -3,14 +3,12 @@ import openApiGlue from "fastify-openapi-glue"
 import path from "path"
 
 import { cityController } from "../module/city/controller"
-import { healthController } from "../module/health/controller"
 import { routeController } from "../module/route/controller"
 import securityHandlers from "./security-handlers"
 
 const specification = path.join(__dirname, "../config/openapi-internal.bundle.json")
 
 const service = {
-  ...healthController,
   ...cityController,
   ...routeController,
 }

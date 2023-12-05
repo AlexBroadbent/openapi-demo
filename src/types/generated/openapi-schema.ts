@@ -32,16 +32,9 @@ export interface paths {
     get: operations["getRoute"];
     /**
      * Create a Route
-     * @description Create a route between two cities with a given milage
+     * @description Create a route between two cities with a given mileage
      */
     post: operations["createRoute"];
-  };
-  "/_health": {
-    /**
-     * Get Health Check Status
-     * @description Returns the health check for the service
-     */
-    get: operations["getHealthCheck"];
   };
 }
 
@@ -72,10 +65,6 @@ export interface components {
        * @description The distance in miles between the two cities
        */
       miles: number;
-    };
-    /** Health Check */
-    HealthCheck: {
-      ok: boolean;
     };
     /** Error Model */
     ErrorModel: {
@@ -123,14 +112,6 @@ export interface components {
       content: {
         "application/json": {
           data: components["schemas"]["Route"];
-        };
-      };
-    };
-    /** @description Returns health check result */
-    HealthCheckGet: {
-      content: {
-        "application/json": {
-          data: components["schemas"]["HealthCheck"];
         };
       };
     };
@@ -269,24 +250,13 @@ export interface operations {
   };
   /**
    * Create a Route
-   * @description Create a route between two cities with a given milage
+   * @description Create a route between two cities with a given mileage
    */
   createRoute: {
     requestBody: components["requestBodies"]["CreateRoute"];
     responses: {
       200: components["responses"]["RouteCreated"];
       400: components["responses"]["ErrorBadRequest"];
-      401: components["responses"]["ErrorUnauthorized"];
-      default: components["responses"]["ErrorModel"];
-    };
-  };
-  /**
-   * Get Health Check Status
-   * @description Returns the health check for the service
-   */
-  getHealthCheck: {
-    responses: {
-      200: components["responses"]["HealthCheckGet"];
       401: components["responses"]["ErrorUnauthorized"];
       default: components["responses"]["ErrorModel"];
     };

@@ -26,7 +26,6 @@ x-tagGroups:
       - Intro
   - name: API
     tags:
-      - Health
       - City
       - Route
 
@@ -36,8 +35,6 @@ tags:
       Hello and welcome to my OpenAPI Demo.
 
       I'm going to use this API as an example of how to use OpenAPI with a variety of tools.
-  - name: Health
-    description: Check the health status of the server.
   - name: City
     description: |
       Cities are a representation of a city within a country.
@@ -135,7 +132,7 @@ paths:
       tags:
         - Route
       summary: Create a Route
-      description: Create a route between two cities with a given milage
+      description: Create a route between two cities with a given mileage
       operationId: createRoute
       x-internal: true
       security:
@@ -152,23 +149,6 @@ paths:
           $ref: "#/components/responses/ErrorUnauthorized"
         default:
           $ref: "#/components/responses/ErrorResponse"
-  "/_health":
-    get:
-      tags:
-        - Health
-      summary: Get Health Check Status
-      description: Returns the health check for the service
-      operationId: getHealthCheck
-      security:
-        - api_key:
-            - health:read
-      responses:
-        "200":
-          $ref: "#/components/responses/HealthCheckGet"
-        "401":
-          $ref: "#/components/responses/ErrorUnauthorized"
-        default:
-          $ref: "#/components/responses/ErrorResponse"
 
 components:
   schemas:
@@ -176,8 +156,6 @@ components:
       $ref: schemas/City.yml
     Route:
       $ref: schemas/Route.yml
-    HealthCheck:
-      $ref: schemas/HealthCheck.yml
     ErrorModel:
       $ref: schemas/ErrorModel.yml
 
@@ -196,8 +174,6 @@ components:
       $ref: responses/RouteGet.yml
     RouteCreated:
       $ref: responses/RouteCreated.yml
-    HealthCheckGet:
-      $ref: responses/HealthCheckGet.yml
     ErrorResponse:
       $ref: responses/ErrorModel.yml
     ErrorBadRequest:

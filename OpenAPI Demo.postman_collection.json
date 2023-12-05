@@ -7,29 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Get Health Check",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://0.0.0.0:8000/v1/_health",
-					"protocol": "http",
-					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
-					],
-					"port": "8000",
-					"path": [
-						"v1",
-						"_health"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get All Cities",
 			"request": {
 				"method": "GET",

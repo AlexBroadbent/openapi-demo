@@ -1,7 +1,0 @@
-title: Health Check
-type: object
-required:
-  - ok
-properties:
-  ok:
-    type: boolean
