@@ -57,7 +57,7 @@ paths:
       operationId: getCities
       security:
         - api_key:
-            - city:get
+            - city:read
       responses:
         "200":
           $ref: "#/components/responses/CityAllGet"
@@ -97,7 +97,7 @@ paths:
       operationId: getCity
       security:
         - api_key:
-            - city:get
+            - city:read
       parameters:
         - $ref: "#/components/parameters/PathCityID"
       responses:
@@ -118,7 +118,7 @@ paths:
       operationId: getRoute
       security:
         - api_key:
-            - route:get
+            - route:read
       parameters:
         - $ref: "#/components/parameters/QueryFrom"
         - $ref: "#/components/parameters/QueryTo"
@@ -161,7 +161,7 @@ paths:
       operationId: getHealthCheck
       security:
         - api_key:
-            - health:get
+            - health:read
       responses:
         "200":
           $ref: "#/components/responses/HealthCheckGet"
