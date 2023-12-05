@@ -17,17 +17,17 @@ and handles all the routing and authentication.
 - node 18
 - pnpm
 
-## Commands
+## Scripts
 
-| Command      | Purpose                                                                          |
-|--------------|----------------------------------------------------------------------------------|
-| dev          | Run the server locally                                                           |
-| openapi      | Bundle the OpenAPI internal and public schemas, and generate type defitions      |
-| verify       | Generates the OpenAPI schemas, type definitions and builds and lints the project |
-| docs:preview | View the public API documentation                                                |
-| test         | Runs all the unit tests                                                          |
+| Command | Purpose                                                                                         |
+|---------|-------------------------------------------------------------------------------------------------|
+| dev     | Run the server locally                                                                          |
+| build   | Bundle the OpenAPI internal and public schemas, generate type definitions and build the project |
+| verify  | Generates the OpenAPI schemas, type definitions and builds and lints the project                |
+| preview | View the public API documentation                                                               |
+| test    | Runs all the unit tests                                                                         |
 
-Note: after making a change to `openapi.yml`, run `pnpm openapi` to update all the models and server code.
+Note: after making a change to `openapi.yml`, run `pnpm build` to update all the models and server code.
 
 ## Structure
 
