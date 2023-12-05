@@ -45,22 +45,7 @@ export interface paths {
   };
 }
 
-export interface webhooks {
-  "CityCreated": {
-    /**
-     * City Created Event
-     * @description An event that is posted when a new city is created
-     */
-    post: operations["cityCreatedEvent"];
-  };
-  "RouteCreated": {
-    /**
-     * Route Created Event
-     * @description An event that is posted when a new route is created
-     */
-    post: operations["routeCreatedEvent"];
-  };
-}
+export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
@@ -134,8 +119,6 @@ export interface components {
     RouteCreated: {
       headers: {
         Location: components["headers"]["Location"];
-        "X-City-From": components["headers"]["XCityFrom"];
-        "X-City-To": components["headers"]["XCityTo"];
       };
       content: {
         "application/json": {
@@ -188,10 +171,6 @@ export interface components {
         "application/json": components["schemas"]["ErrorModel"];
       };
     };
-    /** @description Return a 200 status to indicate that the data was received successfully */
-    Webhook: {
-      content: never;
-    };
   };
   parameters: {
     /** @description City Identifier */
@@ -218,10 +197,6 @@ export interface components {
   headers: {
     /** @description URI of the newly created resource */
     Location: string;
-    /** @description The `from` parameter of a route resource */
-    XCityFrom: string;
-    /** @description The `to` parameter of a route resource */
-    XCityTo: string;
   };
   pathItems: never;
 }
@@ -314,36 +289,6 @@ export interface operations {
       200: components["responses"]["HealthCheckGet"];
       401: components["responses"]["ErrorUnauthorized"];
       default: components["responses"]["ErrorModel"];
-    };
-  };
-  /**
-   * City Created Event
-   * @description An event that is posted when a new city is created
-   */
-  cityCreatedEvent: {
-    /** @description City */
-    requestBody?: {
-      content: {
-        "application/json": components["schemas"]["City"];
-      };
-    };
-    responses: {
-      200: components["responses"]["Webhook"];
-    };
-  };
-  /**
-   * Route Created Event
-   * @description An event that is posted when a new route is created
-   */
-  routeCreatedEvent: {
-    /** @description Route */
-    requestBody?: {
-      content: {
-        "application/json": components["schemas"]["Route"];
-      };
-    };
-    responses: {
-      200: components["responses"]["Webhook"];
     };
   };
 }

@@ -1,7 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
-import { PathCityID } from "../../types/parameters"
 import { CityCreate } from "../../types/schemas"
 import { JsonResponse, PathParams, RequestBody } from "../../types/types"
 import { createCity, getAllCities, getCity } from "./service"
@@ -18,7 +17,7 @@ export const cityController = {
       Params: PathParams<"getCity">
     }>,
   ): Promise<JsonResponse<"getCity">> => {
-    const { id }: { id: PathCityID } = req.params
+    const { id } = req.params
 
     const data = await getCity(id)
 

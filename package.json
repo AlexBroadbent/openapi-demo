@@ -1,5 +1,5 @@
 {
-  "name": "openapi-test",
+  "name": "openapi-demo",
   "version": "0.1.0",
   "description": "OpenAPI Demo",
   "author": "Alexander Broadbent",
@@ -12,13 +12,13 @@
     "build": "tsc",
     "dev": "NODE_ENV=local nodemon -r dotenv-flow/config --watch src --files src/index.ts",
     "test": "jest",
-    "verify": "pnpm openapi && pnpm lint && pnpm build && pnpm openapi:validate",
-    "openapi": "pnpm openapi:generate-internal && pnpm openapi:generate-api && pnpm openapi:generate-types",
-    "openapi:generate-api": "redocly bundle api -o ./src/config/openapi.bundle.json",
-    "openapi:generate-internal": "redocly bundle internal -o ./src/config/openapi-internal.bundle.json",
-    "openapi:generate-types": "openapi-typescript ./src/config/openapi-internal.bundle.json --output ./src/types/generated/openapi-schema.ts",
-    "openapi:validate": "redocly lint --lint-config error",
-    "docs:preview": "concurrently \"http-server docs/public\" \"open http://127.0.0.1:8080\""
+    "docs:preview": "concurrently \"http-server docs/public\" \"open http://127.0.0.1:8080\"",
+    "verify": "pnpm openapi:validate && pnpm openapi && pnpm lint && pnpm build",
+    "openapi": "pnpm bundle:internal && pnpm bundle:api && pnpm generate:types",
+    "openapi:validate": "redocly lint internal --lint-config error",
+    "bundle:api": "redocly bundle api -o ./src/config/openapi.bundle.json",
+    "bundle:internal": "redocly bundle internal -o ./src/config/openapi-internal.bundle.json",
+    "generate:types": "openapi-typescript ./src/config/openapi-internal.bundle.json --output ./src/types/generated/openapi-schema.ts"
   },
   "repository": {
     "type": "git",
