@@ -6,7 +6,7 @@ info:
   version: 0.1.0
   description: Alex's OpenAPI Demo sandbox
   x-logo:
-    url: logo.png
+    url: logo.jpg
     altText: Alex's OpenAPI Demo
   contact:
     name: Alexander Broadbent
@@ -21,20 +21,12 @@ servers:
     description: Local
 
 x-tagGroups:
-  - name: Intro
-    tags:
-      - Intro
   - name: API
     tags:
       - City
       - Route
 
 tags:
-  - name: Intro
-    description: |
-      Hello and welcome to my OpenAPI Demo.
-
-      I'm going to use this API as an example of how to use OpenAPI with a variety of tools.
   - name: City
     description: |
       Cities are a representation of a city within a country.

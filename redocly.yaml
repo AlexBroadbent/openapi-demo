@@ -9,7 +9,7 @@ rules:
     allowAdditionalProperties: true
 
 apis:
-  api:
+  public:
     root: ./src/config/openapi.yml
     decorators:
       remove-x-internal: on

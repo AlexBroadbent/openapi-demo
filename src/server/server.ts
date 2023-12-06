@@ -35,9 +35,7 @@ const logFatalError = (server: FastifyInstance) => {
 export const getServer = async (options: FastifyServerOptions = {}): Promise<FastifyInstance> => {
   const server = fastify(options).setErrorHandler(errorHandler)
 
-  server.register(cors, {
-    origin: "*",
-  })
+  await server.register(cors, { origin: "*" })
 
   logRequests(server)
   logResponses(server)

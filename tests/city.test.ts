@@ -13,46 +13,7 @@ describe("city", () => {
     await server.close()
   })
 
-  describe("GET /v1/city", () => {
-    let response: LightMyRequestResponse
-
-    beforeAll(async () => {
-      response = await server.inject({
-        method: "GET",
-        url: "/v1/city",
-      })
-    })
-
-    it("should return 200 OK status code", () => {
-      expect(response.statusCode).toStrictEqual(200)
-    })
-
-    it("should return JSON body with 6 cities from repository", () => {
-      expect(response.json().data).toHaveLength(6)
-      expect(response.json().data).toMatchObject(
-        expect.arrayContaining([
-          expect.objectContaining({ id: "barcelona" }),
-          expect.objectContaining({ id: "geneva" }),
-          expect.objectContaining({ id: "london" }),
-          expect.objectContaining({ id: "milan" }),
-          expect.objectContaining({ id: "paris" }),
-          expect.objectContaining({ id: "thurles" }),
-        ]),
-      )
-    })
-  })
-
   describe("GET /v1/city/{id}", () => {
-    let server: FastifyInstance
-
-    beforeAll(async () => {
-      server = await getTestServer()
-    })
-
-    afterAll(async () => {
-      await server.close()
-    })
-
     describe("when valid city is requested", () => {
       let response: LightMyRequestResponse
 
@@ -96,6 +57,35 @@ describe("city", () => {
           message: "City not found",
         })
       })
+    })
+  })
+
+  describe("GET /v1/city", () => {
+    let response: LightMyRequestResponse
+
+    beforeAll(async () => {
+      response = await server.inject({
+        method: "GET",
+        url: "/v1/city",
+      })
+    })
+
+    it("should return 200 OK status code", () => {
+      expect(response.statusCode).toStrictEqual(200)
+    })
+
+    it("should return JSON body with 6 cities from repository", () => {
+      expect(response.json().data).toHaveLength(6)
+      expect(response.json().data).toMatchObject(
+        expect.arrayContaining([
+          expect.objectContaining({ id: "barcelona" }),
+          expect.objectContaining({ id: "geneva" }),
+          expect.objectContaining({ id: "london" }),
+          expect.objectContaining({ id: "milan" }),
+          expect.objectContaining({ id: "paris" }),
+          expect.objectContaining({ id: "thurles" }),
+        ]),
+      )
     })
   })
 

@@ -1,0 +1,628 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI Demo",
+    "version": "0.1.0",
+    "description": "Alex's OpenAPI Demo sandbox",
+    "x-logo": {
+      "url": "logo.jpg",
+      "altText": "Alex's OpenAPI Demo"
+    },
+    "contact": {
+      "name": "Alexander Broadbent",
+      "url": "https://abroadbent.com",
+      "email": "hello@abroadbent.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "identifier": "Apache-2.0"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/v1",
+      "description": "Local"
+    }
+  ],
+  "tags": [
+    {
+      "name": "City",
+      "description": "Cities are a representation of a city within a country.\n"
+    },
+    {
+      "name": "Route",
+      "description": "A route is a distance, in miles, between two cities.\n\n*Note: The distance may be different depending on the direction from one city to the other.*\n"
+    }
+  ],
+  "paths": {
+    "/city": {
+      "get": {
+        "tags": [
+          "City"
+        ],
+        "summary": "Get Cities",
+        "description": "Get cities",
+        "operationId": "getCities",
+        "security": [
+          {
+            "api_key": [
+              "city:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CityAllGet"
+          },
+          "400": {
+            "$ref": "#/components/responses/ErrorBadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/ErrorUnauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorModel"
+          }
+        }
+      }
+    },
+    "/city/{id}": {
+      "get": {
+        "tags": [
+          "City"
+        ],
+        "summary": "Get City",
+        "description": "Get a city given an ID",
+        "operationId": "getCity",
+        "security": [
+          {
+            "api_key": [
+              "city:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PathCityID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CityGet"
+          },
+          "401": {
+            "$ref": "#/components/responses/ErrorUnauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/ErrorNotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorModel"
+          }
+        }
+      }
+    },
+    "/route": {
+      "get": {
+        "tags": [
+          "Route"
+        ],
+        "summary": "Get a Route",
+        "description": "Get a route between two cities",
+        "operationId": "getRoute",
+        "security": [
+          {
+            "api_key": [
+              "route:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/QueryFrom"
+          },
+          {
+            "$ref": "#/components/parameters/QueryTo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RouteGet"
+          },
+          "401": {
+            "$ref": "#/components/responses/ErrorUnauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/ErrorNotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/ErrorModel"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "City": {
+        "title": "City",
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "country"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "City Identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the city"
+          },
+          "country": {
+            "type": "string",
+            "description": "The country which the city is in"
+          }
+        },
+        "examples": [
+          {
+            "id": "milan",
+            "name": "Milan",
+            "country": "Italia"
+          }
+        ]
+      },
+      "Route": {
+        "title": "Route",
+        "description": "A route between two cities (`from` and `to`), with a distance of miles\n",
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "miles"
+        ],
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "A city identifier"
+          },
+          "to": {
+            "type": "string",
+            "description": "A city identifier"
+          },
+          "miles": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The distance in miles between the two cities",
+            "minimum": 0
+          }
+        },
+        "examples": [
+          {
+            "from": "london",
+            "to": "milan",
+            "miles": 819
+          }
+        ]
+      },
+      "ErrorModel": {
+        "title": "Error Model",
+        "type": "object",
+        "required": [
+          "status",
+          "message"
+        ],
+        "properties": {
+          "status": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 599
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "CityCreate": {
+        "title": "City",
+        "type": "object",
+        "required": [
+          "name",
+          "country"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the city"
+          },
+          "country": {
+            "type": "string",
+            "description": "The country which the city is in"
+          }
+        },
+        "examples": [
+          {
+            "name": "Hertford",
+            "country": "England"
+          }
+        ]
+      }
+    },
+    "requestBodies": {
+      "CreateCity": {
+        "description": "City creation request",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CityCreate"
+            }
+          }
+        }
+      },
+      "CreateRoute": {
+        "description": "Route creation request",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Route"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "CityGet": {
+        "description": "Returns city result",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            },
+            "examples": {
+              "Thurles": {
+                "$ref": "#/components/examples/ResponseCityThurles"
+              }
+            }
+          }
+        }
+      },
+      "CityAllGet": {
+        "description": "Returns cities result",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            },
+            "examples": {
+              "ResponseCities": {
+                "$ref": "#/components/examples/ResponseCities"
+              }
+            }
+          }
+        }
+      },
+      "RouteGet": {
+        "description": "Returns route result",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/Route"
+                }
+              }
+            },
+            "examples": {
+              "ParisMilan": {
+                "$ref": "#/components/examples/ResponseRouteParisMilan"
+              }
+            }
+          }
+        }
+      },
+      "RouteCreated": {
+        "description": "Returns route result",
+        "headers": {
+          "Location": {
+            "$ref": "#/components/headers/Location"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/Route"
+                }
+              }
+            },
+            "examples": {
+              "ParisMilan": {
+                "$ref": "#/components/examples/ResponseRouteParisMilan"
+              }
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "$ref": "#/components/responses/ErrorModel"
+      },
+      "ErrorBadRequest": {
+        "description": "An error returned when the request is invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "Bad Request Error",
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "enum": [
+                    400
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "BadRequest": {
+                "summary": "Bad Request Error",
+                "value": {
+                  "status": 400,
+                  "message": "Bad Request"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ErrorNotFound": {
+        "description": "An error returned when the requested resource cannot be found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "Not Found Error",
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "enum": [
+                    404
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "NotFound": {
+                "summary": "Not Found Error",
+                "value": {
+                  "status": 404,
+                  "message": "City Not Found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ErrorUnauthorized": {
+        "description": "An error returned when the requestor does not have access to the resource",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "Unauthorized Error",
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "enum": [
+                    401
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "NotFound": {
+                "summary": "Unauthorized Error",
+                "value": {
+                  "status": 401,
+                  "message": "Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ErrorModel": {
+        "description": "Error when there is a problem while fulfilling the request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorModel"
+            },
+            "examples": {
+              "500": {
+                "summary": "Internal Server Error",
+                "value": {
+                  "status": 500,
+                  "message": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "examples": {
+      "CityThurles": {
+        "$ref": "#/components/examples/ResponseCityThurles"
+      },
+      "RouteParisMilan": {
+        "$ref": "#/components/examples/ResponseRouteParisMilan"
+      },
+      "ResponseCities": {
+        "summary": "The response to a GET /v1/city call with result",
+        "value": {
+          "data": [
+            {
+              "id": "london",
+              "name": "London",
+              "country": "United Kingdom"
+            },
+            {
+              "id": "milan",
+              "name": "Milan",
+              "country": "Italia"
+            },
+            {
+              "id": "paris",
+              "name": "Paris",
+              "country": "France"
+            }
+          ]
+        }
+      },
+      "ResponseCityThurles": {
+        "summary": "The response to a GET /v1/city call with result of Thurles in the Republic of Ireland",
+        "value": {
+          "data": {
+            "id": "thurles",
+            "name": "Thurles",
+            "country": "Éire"
+          }
+        }
+      },
+      "ResponseRouteParisMilan": {
+        "summary": "Example response to /v1/route endpoint with route from Paris to Milan",
+        "value": {
+          "data": {
+            "from": "paris",
+            "to": "milan",
+            "miles": 529
+          }
+        }
+      }
+    },
+    "parameters": {
+      "PathCityID": {
+        "in": "path",
+        "name": "id",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "description": "City Identifier",
+        "examples": {
+          "Paris": {
+            "summary": "The city of Paris in France",
+            "value": "paris"
+          }
+        }
+      },
+      "QueryFrom": {
+        "in": "query",
+        "name": "from",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "description": "City Identifier",
+        "examples": {
+          "London": {
+            "summary": "City to plan a route from",
+            "value": "london"
+          }
+        }
+      },
+      "QueryTo": {
+        "in": "query",
+        "name": "to",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "description": "City Identifier",
+        "examples": {
+          "London": {
+            "summary": "City to plan a route to",
+            "value": "milan"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "X-API-Key",
+        "in": "header"
+      }
+    },
+    "headers": {
+      "Location": {
+        "description": "URI of the newly created resource",
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "x-tagGroups": [
+    {
+      "name": "API",
+      "tags": [
+        "City",
+        "Route"
+      ]
+    }
+  ]
+}
