@@ -1,9 +1,9 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
-import { QueryFrom, QueryTo } from "../../types/parameters"
-import { Route } from "../../types/schemas"
-import { JsonResponse, QueryParams, RequestBody } from "../../types/types"
+import type { QueryFrom, QueryTo } from "../../types/parameters"
+import type { Route } from "../../types/schemas"
+import type { JsonResponse, QueryParams, RequestBody } from "../../types/types"
 import { createRoute, getRoute } from "./repository"
 
 export const routeController = {

@@ -1,5 +1,5 @@
-import { QueryFrom, QueryTo } from "../../types/parameters"
-import { Route } from "../../types/schemas"
+import type { QueryFrom, QueryTo } from "../../types/parameters"
+import type { Route } from "../../types/schemas"
 
 const store: Route[] = [
   { from: "barcelona", to: "thurles", miles: 1395 },

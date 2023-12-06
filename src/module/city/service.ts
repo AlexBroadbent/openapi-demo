@@ -1,5 +1,5 @@
-import { PathCityID } from "../../types/parameters"
-import { City, CityCreate } from "../../types/schemas"
+import type { PathCityID } from "../../types/parameters"
+import type { City, CityCreate } from "../../types/schemas"
 import { slugify } from "../../util/slugify"
 import * as repo from "./repository"
 

@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
 
 import { NotFoundError } from "../../server/errors"
-import { CityCreate } from "../../types/schemas"
-import { JsonResponse, PathParams, RequestBody } from "../../types/types"
+import type { CityCreate } from "../../types/schemas"
+import type { JsonResponse, PathParams, RequestBody } from "../../types/types"
 import { createCity, getAllCities, getCity } from "./service"
 
 export const cityController = {
