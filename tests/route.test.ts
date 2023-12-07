@@ -29,7 +29,7 @@ describe("route", () => {
       })
 
       it("should return JSON body with route", () => {
-        expect(response.json().data).toMatchObject({
+        expect(response.json()).toMatchObject({
           from: "london",
           to: "paris",
           miles: 288,
@@ -92,7 +92,7 @@ describe("route", () => {
       })
 
       it("should return JSON body with route", () => {
-        expect(response.json().data).toMatchObject({
+        expect(response.json()).toMatchObject({
           from: "manchester",
           to: "london",
           miles: 248,

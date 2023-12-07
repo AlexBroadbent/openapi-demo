@@ -2,14 +2,8 @@ description: Returns cities result
 content:
   application/json:
     schema:
-      type: object
-      required:
-        - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: ../schemas/City.yml
-    examples:
-      ResponseCities:
-        $ref: ../examples/ResponseCities.yml
+      type: array
+      items:
+        $ref: ../schemas/City.yml
+    example:
+      $ref: ../examples/ResponseCities.yml

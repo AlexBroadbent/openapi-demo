@@ -2,12 +2,6 @@ description: Returns route result
 content:
   application/json:
     schema:
-      type: object
-      required:
-        - data
-      properties:
-        data:
-          $ref: ../schemas/Route.yml
-    examples:
-      ParisMilan:
-        $ref: ../examples/ResponseRouteParisMilan.yml
+      $ref: ../schemas/Route.yml
+    example:
+      $ref: ../examples/ResponseRouteParisMilan.yml

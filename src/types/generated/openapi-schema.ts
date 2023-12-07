@@ -83,25 +83,19 @@ export interface components {
     /** @description Returns city result */
     CityGet: {
       content: {
-        "application/json": {
-          data: components["schemas"]["City"];
-        };
+        "application/json": components["schemas"]["City"];
       };
     };
     /** @description Returns cities result */
     CityAllGet: {
       content: {
-        "application/json": {
-          data: components["schemas"]["City"][];
-        };
+        "application/json": components["schemas"]["City"][];
       };
     };
     /** @description Returns route result */
     RouteGet: {
       content: {
-        "application/json": {
-          data: components["schemas"]["Route"];
-        };
+        "application/json": components["schemas"]["Route"];
       };
     };
     /** @description Returns route result */
@@ -110,9 +104,7 @@ export interface components {
         Location: components["headers"]["Location"];
       };
       content: {
-        "application/json": {
-          data: components["schemas"]["Route"];
-        };
+        "application/json": components["schemas"]["Route"];
       };
     };
     ErrorResponse: components["responses"]["ErrorModel"];

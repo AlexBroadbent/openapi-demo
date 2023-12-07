@@ -1,6 +1,3 @@
-summary: Example response to /v1/route endpoint with route from Paris to Milan
-value:
-  data:
-    from: paris
-    to: milan
-    miles: 529
+from: paris
+to: milan
+miles: 529

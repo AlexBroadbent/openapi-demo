@@ -1,25 +1,25 @@
 import { operations } from "./generated/openapi-schema"
 import { FilterConditionally } from "./utility"
 
-type AnyObject = Record<string, unknown>
+type Anything = unknown
 
 type AllOperations = { [K in keyof operations]: operations[K] }
 
 type HasPathParameters = FilterConditionally<
   AllOperations,
-  { parameters: { path?: AnyObject } }
+  { parameters: { path?: Anything } }
 >
 type HasQueryParameters = FilterConditionally<
   AllOperations,
-  { parameters: { query?: AnyObject } }
+  { parameters: { query?: Anything } }
 >
 type HasRequestBody = FilterConditionally<
   AllOperations,
-  { requestBody: AnyObject }
+  { requestBody: Anything }
 >
 type HasJsonResponse = FilterConditionally<
   AllOperations,
-  { responses: { 200: { content: { "application/json": AnyObject } } } }
+  { responses: { 200: { content: { "application/json": Anything } } } }
 >
 
 export type PathParams<operation extends keyof HasPathParameters> =

@@ -14,11 +14,11 @@ export const routeController = {
   ): Promise<JsonResponse<"getRoute">> => {
     const { from, to }: { from: QueryFrom; to: QueryTo } = req.query
 
-    const data = await getRoute(from, to)
+    const route = await getRoute(from, to)
 
-    if (!data) throw new NotFoundError("Route not found")
+    if (!route) throw new NotFoundError("Route not found")
 
-    return { data }
+    return route
   },
 
   createRoute: async (
@@ -27,12 +27,12 @@ export const routeController = {
     }>,
     rep: FastifyReply,
   ): Promise<JsonResponse<"createRoute">> => {
-    const route: Route = req.body
+    const input: Route = req.body
 
-    const data = await createRoute(route)
+    const route = await createRoute(input)
 
-    rep.header("Location", `/v1/route?from=${data.from}&to=${data.to}`)
+    rep.header("Location", `/v1/route?from=${route.from}&to=${route.to}`)
 
-    return { data }
+    return route
   },
 }

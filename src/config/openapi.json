@@ -37,13 +37,17 @@
   "paths": {
     "/city": {
       "get": {
-        "tags": ["City"],
+        "tags": [
+          "City"
+        ],
         "summary": "Get Cities",
         "description": "Get cities",
         "operationId": "getCities",
         "security": [
           {
-            "api_key": ["city:read"]
+            "api_key": [
+              "city:read"
+            ]
           }
         ],
         "responses": {
@@ -64,13 +68,17 @@
     },
     "/city/{id}": {
       "get": {
-        "tags": ["City"],
+        "tags": [
+          "City"
+        ],
         "summary": "Get City",
         "description": "Get a city given an ID",
         "operationId": "getCity",
         "security": [
           {
-            "api_key": ["city:read"]
+            "api_key": [
+              "city:read"
+            ]
           }
         ],
         "parameters": [
@@ -96,13 +104,17 @@
     },
     "/route": {
       "get": {
-        "tags": ["Route"],
+        "tags": [
+          "Route"
+        ],
         "summary": "Get a Route",
         "description": "Get a route between two cities",
         "operationId": "getRoute",
         "security": [
           {
-            "api_key": ["route:read"]
+            "api_key": [
+              "route:read"
+            ]
           }
         ],
         "parameters": [
@@ -135,7 +147,11 @@
       "City": {
         "title": "City",
         "type": "object",
-        "required": ["id", "name", "country"],
+        "required": [
+          "id",
+          "name",
+          "country"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -162,7 +178,11 @@
         "title": "Route",
         "description": "A route between two cities (`from` and `to`), with a distance of miles\n",
         "type": "object",
-        "required": ["from", "to", "miles"],
+        "required": [
+          "from",
+          "to",
+          "miles"
+        ],
         "properties": {
           "from": {
             "type": "string",
@@ -190,7 +210,10 @@
       "ErrorModel": {
         "title": "Error Model",
         "type": "object",
-        "required": ["status", "message"],
+        "required": [
+          "status",
+          "message"
+        ],
         "properties": {
           "status": {
             "type": "integer",
@@ -205,7 +228,10 @@
       "CityCreate": {
         "title": "City",
         "type": "object",
-        "required": ["name", "country"],
+        "required": [
+          "name",
+          "country"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -254,18 +280,12 @@
         "content": {
           "application/json": {
             "schema": {
-              "type": "object",
-              "required": ["data"],
-              "properties": {
-                "data": {
-                  "$ref": "#/components/schemas/City"
-                }
-              }
+              "$ref": "#/components/schemas/City"
             },
-            "examples": {
-              "Thurles": {
-                "$ref": "#/components/examples/ResponseCityThurles"
-              }
+            "example": {
+              "id": "thurles",
+              "name": "Thurles",
+              "country": "Éire"
             }
           }
         }
@@ -275,22 +295,28 @@
         "content": {
           "application/json": {
             "schema": {
-              "type": "object",
-              "required": ["data"],
-              "properties": {
-                "data": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/City"
-                  }
-                }
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/City"
               }
             },
-            "examples": {
-              "ResponseCities": {
-                "$ref": "#/components/examples/ResponseCities"
+            "example": [
+              {
+                "id": "london",
+                "name": "London",
+                "country": "United Kingdom"
+              },
+              {
+                "id": "milan",
+                "name": "Milan",
+                "country": "Italia"
+              },
+              {
+                "id": "paris",
+                "name": "Paris",
+                "country": "France"
               }
-            }
+            ]
           }
         }
       },
@@ -299,18 +325,12 @@
         "content": {
           "application/json": {
             "schema": {
-              "type": "object",
-              "required": ["data"],
-              "properties": {
-                "data": {
-                  "$ref": "#/components/schemas/Route"
-                }
-              }
+              "$ref": "#/components/schemas/Route"
             },
-            "examples": {
-              "ParisMilan": {
-                "$ref": "#/components/examples/ResponseRouteParisMilan"
-              }
+            "example": {
+              "from": "paris",
+              "to": "milan",
+              "miles": 529
             }
           }
         }
@@ -325,18 +345,12 @@
         "content": {
           "application/json": {
             "schema": {
-              "type": "object",
-              "required": ["data"],
-              "properties": {
-                "data": {
-                  "$ref": "#/components/schemas/Route"
-                }
-              }
+              "$ref": "#/components/schemas/Route"
             },
-            "examples": {
-              "ParisMilan": {
-                "$ref": "#/components/examples/ResponseRouteParisMilan"
-              }
+            "example": {
+              "from": "paris",
+              "to": "london",
+              "miles": 292
             }
           }
         }
@@ -351,11 +365,16 @@
             "schema": {
               "title": "Bad Request Error",
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
-                  "enum": [400]
+                  "enum": [
+                    400
+                  ]
                 },
                 "message": {
                   "type": "string"
@@ -381,11 +400,16 @@
             "schema": {
               "title": "Not Found Error",
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
-                  "enum": [404]
+                  "enum": [
+                    404
+                  ]
                 },
                 "message": {
                   "type": "string"
@@ -411,11 +435,16 @@
             "schema": {
               "title": "Unauthorized Error",
               "type": "object",
-              "required": ["status", "message"],
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
-                  "enum": [401]
+                  "enum": [
+                    401
+                  ]
                 },
                 "message": {
                   "type": "string"
@@ -450,56 +479,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "examples": {
-      "CityThurles": {
-        "$ref": "#/components/examples/ResponseCityThurles"
-      },
-      "RouteParisMilan": {
-        "$ref": "#/components/examples/ResponseRouteParisMilan"
-      },
-      "ResponseCities": {
-        "summary": "The response to a GET /v1/city call with result",
-        "value": {
-          "data": [
-            {
-              "id": "london",
-              "name": "London",
-              "country": "United Kingdom"
-            },
-            {
-              "id": "milan",
-              "name": "Milan",
-              "country": "Italia"
-            },
-            {
-              "id": "paris",
-              "name": "Paris",
-              "country": "France"
-            }
-          ]
-        }
-      },
-      "ResponseCityThurles": {
-        "summary": "The response to a GET /v1/city call with result of Thurles in the Republic of Ireland",
-        "value": {
-          "data": {
-            "id": "thurles",
-            "name": "Thurles",
-            "country": "Éire"
-          }
-        }
-      },
-      "ResponseRouteParisMilan": {
-        "summary": "Example response to /v1/route endpoint with route from Paris to Milan",
-        "value": {
-          "data": {
-            "from": "paris",
-            "to": "milan",
-            "miles": 529
           }
         }
       }
@@ -570,7 +549,10 @@
   "x-tagGroups": [
     {
       "name": "API",
-      "tags": ["City", "Route"]
+      "tags": [
+        "City",
+        "Route"
+      ]
     }
   ]
 }

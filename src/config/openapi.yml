@@ -175,12 +175,6 @@ components:
     ErrorUnauthorized:
       $ref: responses/ErrorUnauthorized.yml
 
-  examples:
-    CityThurles:
-      $ref: examples/ResponseCityThurles.yml
-    RouteParisMilan:
-      $ref: examples/ResponseRouteParisMilan.yml
-
   parameters:
     PathCityID:
       $ref: parameters/PathCityID.yml

@@ -6,11 +6,8 @@ import type { JsonResponse, PathParams, RequestBody } from "../../types/types"
 import { createCity, getAllCities, getCity } from "./service"
 
 export const cityController = {
-  getCities: async (): Promise<JsonResponse<"getCities">> => {
-    const data = await getAllCities()
-
-    return { data }
-  },
+  getCities: async (): Promise<JsonResponse<"getCities">> =>
+    await getAllCities(),
 
   getCity: async (
     req: FastifyRequest<{
@@ -19,11 +16,11 @@ export const cityController = {
   ): Promise<JsonResponse<"getCity">> => {
     const { id } = req.params
 
-    const data = await getCity(id)
+    const city = await getCity(id)
 
-    if (!data) throw new NotFoundError("City not found")
+    if (!city) throw new NotFoundError("City not found")
 
-    return { data }
+    return city
   },
 
   createCity: async (
@@ -32,12 +29,12 @@ export const cityController = {
     }>,
     rep: FastifyReply,
   ): Promise<JsonResponse<"createCity">> => {
-    const body: CityCreate = req.body
+    const input: CityCreate = req.body
 
-    const data = await createCity(body)
+    const city = await createCity(input)
 
-    rep.header("Location", `/v1/city/${data.id}`)
+    rep.header("Location", `/v1/city/${city.id}`)
 
-    return { data }
+    return city
   },
 }

@@ -29,7 +29,7 @@ describe("city", () => {
       })
 
       it("should return JSON body with city", () => {
-        expect(response.json().data).toMatchObject({
+        expect(response.json()).toMatchObject({
           id: "london",
           name: "London",
           country: "United Kingdom",
@@ -75,8 +75,8 @@ describe("city", () => {
     })
 
     it("should return JSON body with 6 cities from repository", () => {
-      expect(response.json().data).toHaveLength(6)
-      expect(response.json().data).toMatchObject(
+      expect(response.json()).toHaveLength(6)
+      expect(response.json()).toMatchObject(
         expect.arrayContaining([
           expect.objectContaining({ id: "barcelona" }),
           expect.objectContaining({ id: "geneva" }),
@@ -119,7 +119,7 @@ describe("city", () => {
       })
 
       it("should return JSON body with city", () => {
-        expect(response.json().data).toMatchObject({
+        expect(response.json()).toMatchObject({
           id: "reykjavik",
           name: "Reykjavík",
           country: "Ísland",
