@@ -17,7 +17,7 @@
     "validate": "redocly lint internal --lint-config error",
     "bundle:public": "redocly bundle public -o src/config/openapi-public.bundle.json",
     "bundle:internal": "redocly bundle internal -o src/config/openapi-internal.bundle.json",
-    "generate": "openapi-typescript src/config/openapi-internal.bundle.json -c redocly.yaml -o ./src/types/generated/openapi-schema.ts --immutable --alphabetize --path-params-as-types"
+    "generate": "openapi-typescript src/config/openapi-internal.bundle.json -o ./src/types/generated/openapi-schema.ts"
   },
   "repository": {
     "type": "git",
