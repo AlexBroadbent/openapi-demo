@@ -100,7 +100,9 @@ describe("route", () => {
       })
 
       it("should return expected header", () => {
-        expect(response.headers["location"]).toEqual("/v1/route?from=manchester&to=london")
+        expect(response.headers["location"]).toEqual(
+          "/v1/route?from=manchester&to=london",
+        )
       })
     })
 

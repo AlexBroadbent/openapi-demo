@@ -34,7 +34,10 @@ const store: Route[] = [
   { from: "geneva", to: "barcelona", miles: 487 },
 ]
 
-export const getRoute = async (from: QueryFrom, to: QueryTo): Promise<Route | null> =>
+export const getRoute = async (
+  from: QueryFrom,
+  to: QueryTo,
+): Promise<Route | null> =>
   store.find((route) => route.from === from && route.to === to) ?? null
 
 export const createRoute = async (route: Route): Promise<Route> => {

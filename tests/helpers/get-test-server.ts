@@ -8,7 +8,9 @@ export type GetTestServerOptions = {
   injectApiKey?: ApiKeyOption
 }
 
-export const getTestServer = async ({ injectApiKey = "test" }: GetTestServerOptions = {}): Promise<FastifyInstance> => {
+export const getTestServer = async ({
+  injectApiKey = "test",
+}: GetTestServerOptions = {}): Promise<FastifyInstance> => {
   const server = await getServer()
 
   server.addHook("onRequest", async (request: FastifyRequest) => {

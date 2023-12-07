@@ -4,7 +4,8 @@ import path from "path"
 import { getServer, logger } from "./server"
 
 config({
-  path: path.basename(__dirname) === "build" ? path.dirname(__dirname) : __dirname,
+  path:
+    path.basename(__dirname) === "build" ? path.dirname(__dirname) : __dirname,
   silent: true,
 })
 

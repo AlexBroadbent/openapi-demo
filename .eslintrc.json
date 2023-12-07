@@ -14,7 +14,7 @@
   "rules": {
     "@typescript-eslint/no-unused-vars": "warn",
     "prettier/prettier": "error",
-    "max-len": ["error", { "code": 120, "tabWidth": 2 }],
+    "max-len": ["error", { "code": 80, "tabWidth": 2 }],
     "no-extra-semi": "error",
     "no-unexpected-multiline": "error",
     "semi": ["off", "never"]

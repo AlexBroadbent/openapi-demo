@@ -7,8 +7,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "lint": "eslint . --ext .ts",
-    "lint:fix": "pnpm run lint --fix",
-    "prettier": "prettier --write '**/*.ts'",
+    "format": "prettier --write src && eslint src --ext .ts --fix",
     "prebuild": "pnpm bundle:internal && pnpm bundle:public && pnpm generate",
     "build": "tsc",
     "dev": "NODE_ENV=local nodemon -r dotenv-flow/config --watch src --files src/index.ts",
