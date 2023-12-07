@@ -106,7 +106,7 @@ describe("route", () => {
       })
     })
 
-    describe("when invalid route is posted in body", () => {
+    describe("when body of request fails validation for route", () => {
       let response: LightMyRequestResponse
 
       beforeAll(async () => {
@@ -115,6 +115,8 @@ describe("route", () => {
           url: "/v1/route",
           body: {
             from: "foo",
+            to: "bar",
+            miles: -400,
           },
         })
       })
@@ -126,7 +128,7 @@ describe("route", () => {
       it("should return JSON body with error message", () => {
         expect(response.json()).toMatchObject({
           status: 400,
-          message: "body must have required property 'to'",
+          message: "body/miles must be >= 0",
         })
       })
     })
