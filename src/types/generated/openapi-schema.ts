@@ -44,12 +44,24 @@ export interface components {
   schemas: {
     /** City */
     City: {
+      /** @description The country which the city is in */
+      country: string;
       /** @description City Identifier */
       id: string;
       /** @description Name of the city */
       name: string;
+    };
+    /** City */
+    CityCreate: {
       /** @description The country which the city is in */
       country: string;
+      /** @description Name of the city */
+      name: string;
+    };
+    /** Error Model */
+    ErrorModel: {
+      message: string;
+      status: number;
     };
     /**
      * Route
@@ -58,44 +70,63 @@ export interface components {
     Route: {
       /** @description A city identifier */
       from: string;
-      /** @description A city identifier */
-      to: string;
       /**
        * Format: int32
        * @description The distance in miles between the two cities
        */
       miles: number;
-    };
-    /** Error Model */
-    ErrorModel: {
-      status: number;
-      message: string;
-    };
-    /** City */
-    CityCreate: {
-      /** @description Name of the city */
-      name: string;
-      /** @description The country which the city is in */
-      country: string;
+      /** @description A city identifier */
+      to: string;
     };
   };
   responses: {
-    /** @description Returns city result */
-    CityGet: {
-      content: {
-        "application/json": components["schemas"]["City"];
-      };
-    };
     /** @description Returns cities result */
     CityAllGet: {
       content: {
         "application/json": components["schemas"]["City"][];
       };
     };
-    /** @description Returns route result */
-    RouteGet: {
+    /** @description Returns city result */
+    CityGet: {
       content: {
-        "application/json": components["schemas"]["Route"];
+        "application/json": components["schemas"]["City"];
+      };
+    };
+    /** @description An error returned when the request is invalid */
+    ErrorBadRequest: {
+      content: {
+        "application/json": {
+          message: string;
+          /** @enum {integer} */
+          status: 400;
+        };
+      };
+    };
+    /** @description Error when there is a problem while fulfilling the request */
+    ErrorModel: {
+      content: {
+        "application/json": components["schemas"]["ErrorModel"];
+      };
+    };
+    /** @description An error returned when the requested resource cannot be found */
+    ErrorNotFound: {
+      content: {
+        "application/json": {
+          message: string;
+          /** @enum {integer} */
+          status: 404;
+        };
+      };
+    };
+    ErrorResponse: components["responses"]["ErrorModel"];
+    /** @description An error returned when the requester does not have access to the resource */
+    ErrorUnauthorized: {
+      content: {
+        "application/json": {
+          message: string;
+          /** @enum {integer} */
+          status: 401;
+        };
       };
     };
     /** @description Returns route result */
@@ -107,41 +138,10 @@ export interface components {
         "application/json": components["schemas"]["Route"];
       };
     };
-    ErrorResponse: components["responses"]["ErrorModel"];
-    /** @description An error returned when the request is invalid */
-    ErrorBadRequest: {
+    /** @description Returns route result */
+    RouteGet: {
       content: {
-        "application/json": {
-          /** @enum {integer} */
-          status: 400;
-          message: string;
-        };
-      };
-    };
-    /** @description An error returned when the requested resource cannot be found */
-    ErrorNotFound: {
-      content: {
-        "application/json": {
-          /** @enum {integer} */
-          status: 404;
-          message: string;
-        };
-      };
-    };
-    /** @description An error returned when the requestor does not have access to the resource */
-    ErrorUnauthorized: {
-      content: {
-        "application/json": {
-          /** @enum {integer} */
-          status: 401;
-          message: string;
-        };
-      };
-    };
-    /** @description Error when there is a problem while fulfilling the request */
-    ErrorModel: {
-      content: {
-        "application/json": components["schemas"]["ErrorModel"];
+        "application/json": components["schemas"]["Route"];
       };
     };
   };

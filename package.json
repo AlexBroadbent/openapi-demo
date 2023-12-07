@@ -15,9 +15,9 @@
     "preview": "concurrently \"http-server docs/public\" \"open http://127.0.0.1:8080\"",
     "verify": "pnpm validate && pnpm build && pnpm lint",
     "validate": "redocly lint internal --lint-config error",
-    "bundle:public": "redocly bundle public -o ./src/config/openapi-public.bundle.json",
-    "bundle:internal": "redocly bundle internal -o ./src/config/openapi-internal.bundle.json",
-    "generate": "openapi-typescript ./src/config/openapi-internal.bundle.json --output ./src/types/generated/openapi-schema.ts"
+    "bundle:public": "redocly bundle public -o src/config/openapi-public.bundle.json",
+    "bundle:internal": "redocly bundle internal -o src/config/openapi-internal.bundle.json",
+    "generate": "openapi-typescript src/config/openapi-internal.bundle.json -c redocly.yaml -o ./src/types/generated/openapi-schema.ts --immutable --alphabetize --path-params-as-types"
   },
   "repository": {
     "type": "git",

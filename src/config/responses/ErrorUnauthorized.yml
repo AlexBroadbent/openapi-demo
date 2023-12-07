@@ -1,4 +1,4 @@
-description: An error returned when the requestor does not have access to the resource
+description: An error returned when the requester does not have access to the resource
 content:
   application/json:
     schema:
